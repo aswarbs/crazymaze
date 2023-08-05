@@ -25,24 +25,26 @@ def surrounding_cells(maze, rand_wall):
     
     return s_cells
 
+def get_starting_point(width, height):
+    starting_height = int(random.random()*height)
+    starting_width = int(random.random()*width)
+    if (starting_height == 0): starting_height += 1
+    if (starting_height == height - 1): starting_height -= 1
+    if (starting_width == 0): starting_width += 1
+    if (starting_width == width - 1): starting_width -= 1
+    return starting_width, starting_height
+
 def generate_maze_prim(width, height):
 
     maze: list[list[str]] = []
 
     # Denote all cells as unvisited
-    for i in range(0, height):
-        line = []
-        for j in range(0, width):
-            line.append(unvisited)
-        maze.append(line)
+    maze = [[unvisited for _ in range(width)] for _ in range(height)]
 
     # Randomize starting point and set it a cell
-    starting_height = int(random.random()*height)
-    starting_width = int(random.random()*width)
-    if (starting_height == 0): starting_height += 1
-    if (starting_height == height-1): starting_height -= 1
-    if (starting_width == 0): starting_width += 1
-    if (starting_width == width-1): starting_width -= 1
+    starting_width: int
+    starting_height: int
+    starting_width, starting_height = get_starting_point(width, height)
 
     # Mark it as cell and add surrounding walls to the list
     maze[starting_height][starting_width] = cell

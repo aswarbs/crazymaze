@@ -54,8 +54,8 @@ class binary_maze():
         # Uses list comprehension
         string: str
         string = "\n".join(
-            "".join(" " if self.maze[row][column] else DEFAULT_MAZE_BLOCK for column in range(self.maze_width))
-            for row in range(self.maze_height)
+            "".join(" " if self.maze[row][column] else DEFAULT_MAZE_BLOCK for column in range(self.maze_columns))
+            for row in range(self.maze_rows)
         )
 
         return string
@@ -92,8 +92,8 @@ class binary_maze():
             continue
 
         # Setting Variables
-        self.maze_width = json_data['maze_width']
-        self.maze_height = json_data['maze_height']
+        self.maze_columns = json_data['maze_width']
+        self.maze_rows = json_data['maze_height']
         self.maze = json_data["maze_binary"]
         self.goal_position = json_data["goal_position"]
         self.player_spawn = json_data["player_spawn"]
@@ -107,23 +107,23 @@ class binary_maze():
         """
                 
         # Getting the maze width
-        self.maze_width: int
-        try: self.maze_width = kwargs.get("width")
+        self.maze_columns: int
+        try: self.maze_columns = kwargs.get("width")
         except: raise ValueError("binary_maze: maze intantiation, keyword 'width' not found")
 
         # Getting the maze height
-        self.maze_height: int
-        try: self.maze_height = kwargs.get("height")
+        self.maze_rows: int
+        try: self.maze_rows = kwargs.get("height")
         except: raise ValueError("binary_maze: maze intantiation, keyword 'height' not found")
 
         # Creating a binary 2D array  of the map
         self.maze: list(int)
-        self.maze = [[True for row in range(0, self.maze_width)] for column in range(0, self.maze_height)]
+        self.maze = [[True for row in range(0, self.maze_columns)] for column in range(0, self.maze_rows)]
 
         # Check for random noise generation, if true make random
         if "random" in kwargs:
             if kwargs.get("random") is True:
-                self.maze = [[bool(random.getrandbits(1)) for row in range(0, self.maze_width)] for column in range(0, self.maze_height)]
+                self.maze = [[bool(random.getrandbits(1)) for row in range(0, self.maze_columns)] for column in range(0, self.maze_rows)]
             else:
                 pass
         
@@ -148,8 +148,8 @@ class binary_maze():
 
         # Gathering all relevant maze data
         json_data: dict(any, any) = dict()
-        json_data['maze_width'] = self.maze_width
-        json_data['maze_height'] = self.maze_height
+        json_data['maze_width'] = self.maze_columns
+        json_data['maze_height'] = self.maze_rows
         json_data["maze_binary"] = self.maze
         json_data["goal_position"] = self.goal_position
         json_data["player_spawn"] = self.player_spawn
@@ -182,9 +182,9 @@ class binary_maze():
     def get_goal_column(self) -> int|None: return self.goal_position.second
 
     # Getters for width and height 
-    def get_maze_width(self) -> int: return self.maze_width
-    def get_maze_height(self) -> int: return self.maze_height
-    def get_maze_dimensions(self) -> tuple[int, int]: return (self.maze_width, self.maze_height)
+    def get_maze_width(self) -> int: return self.maze_columns
+    def get_maze_height(self) -> int: return self.maze_rows
+    def get_maze_dimensions(self) -> tuple[int, int]: return (self.maze_rows, self.maze_columns)
 
 # Testing, just displaying a printed maze
 if __name__ == "__main__":
