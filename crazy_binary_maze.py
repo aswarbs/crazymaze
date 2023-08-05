@@ -5,10 +5,13 @@ class binary_maze():
         
         # Getting the maze width
         self.maze_width: int
-        try: self.maze_width = kwargs.get("width")
+        try: self.maze_width, width = kwargs.get("width")
         except: raise ValueError("binary_maze: maze intantiation, keyword 'width' not found")
 
         # Getting the maze height
         self.maze_height: int
-        try: self.maze_height = kwargs.get("height")
+        try: self.maze_height, height = kwargs.get("height")
         except: raise ValueError("binary_maze: maze intantiation, keyword 'height' not found")
+
+        self.maze: list(int)
+        self.maze: [[True for y in range(0, height)] for x in range(0, width)]
