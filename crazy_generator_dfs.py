@@ -19,7 +19,7 @@ def carve_passage(maze: List[List[bool]], row1: int, col1: int, row2: int, col2:
 def generate_maze_dfs(rows: int, columns: int) -> binary_maze:
 
     # generates a random maze of the specified width and height using the Depth-First Search algorithm.
-    maze: List[List[bool]] = [[True for _ in range(columns)] for _ in range(height)]
+    maze: List[List[bool]] = [[True for _ in range(columns)] for _ in range(rows)]
 
     # stack to keep track of visited cells during maze generation.
     stack: List[Tuple[int, int]] = []   
@@ -27,7 +27,7 @@ def generate_maze_dfs(rows: int, columns: int) -> binary_maze:
     # set to store visited cells during maze generation.
     visited: set[Tuple[int, int]] = set()  
 
-    start_row: int = random.randint(0, height - 1)
+    start_row: int = random.randint(0, rows - 1)
     start_col: int = random.randint(0, columns - 1)
 
     # start the maze generation from a random cell.
@@ -37,7 +37,7 @@ def generate_maze_dfs(rows: int, columns: int) -> binary_maze:
         current_row, current_col = stack[-1]
         visited.add((current_row, current_col))
 
-        neighbors: List[Tuple[int, int]] = get_neighbors(current_row, current_col, columns, height)
+        neighbors: List[Tuple[int, int]] = get_neighbors(current_row, current_col, columns, rows)
         unvisited_neighbors: List[Tuple[int, int]] = [(r, c) for r, c in neighbors if (r, c) not in visited]
 
         if unvisited_neighbors:
@@ -52,11 +52,11 @@ def generate_maze_dfs(rows: int, columns: int) -> binary_maze:
 
     # Find positions for player spawns and goal
     top_spawn_row, top_spawn_col = random.choice([(0, random.randint(0, columns - 1))])
-    bottom_spawn_row, bottom_spawn_col = random.choice([(height - 1, random.randint(0, columns - 1))])
-    goal_row, goal_col = height // 2, columns // 2
+    bottom_spawn_row, bottom_spawn_col = random.choice([(rows - 1, random.randint(0, columns - 1))])
+    goal_row, goal_col = rows // 2, columns // 2
 
     # create a binary maze instance
-    binary_maze_instance = binary_maze(width = columns, height = height)
+    binary_maze_instance = binary_maze(width = columns, height = rows)
     binary_maze_instance.set_maze_internal([[False if cell else True for cell in row] for row in maze])
     binary_maze_instance.set_player_spawn(0, (top_spawn_row, top_spawn_col))
     binary_maze_instance.set_player_spawn(1, (bottom_spawn_row, bottom_spawn_col))
@@ -64,5 +64,5 @@ def generate_maze_dfs(rows: int, columns: int) -> binary_maze:
     return binary_maze_instance
 
 if __name__ == "__main__":
-    test_maze = generate_maze_dfs(20, 5)
+    test_maze = generate_maze_dfs(5, 30)
     print(test_maze)
