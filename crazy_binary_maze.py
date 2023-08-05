@@ -185,6 +185,6 @@ class binary_maze():
 
 # Testing, just displaying a printed maze
 if __name__ == "__main__":
-    print("binary_maze: generating a maze:")
+    print("binary_maze: generating and displaying a random noise maze")
     test_maze = binary_maze(width = 50, height = 5, random = True)
     print(test_maze)
