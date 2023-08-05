@@ -8,7 +8,7 @@ import json
 # Documentation: https://docs.python.org/3/library/random.html
 import random
 
-DEFAULT_MAZE_BLOCK = '-'
+DEFAULT_MAZE_BLOCK = '#  '
 
 class binary_maze():
     """
@@ -54,7 +54,7 @@ class binary_maze():
         # Uses list comprehension
         string: str
         string = "\n".join(
-            "".join(" " if self.maze[row][column] else DEFAULT_MAZE_BLOCK for column in range(self.maze_columns))
+            "".join("   " if self.maze[row][column] else DEFAULT_MAZE_BLOCK for column in range(self.maze_columns))
             for row in range(self.maze_rows)
         )
 
