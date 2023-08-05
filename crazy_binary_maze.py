@@ -108,18 +108,12 @@ class binary_maze():
 
     def write_maze_to_file(self, maze_path: str) -> None|Exception:
         """
-        Write the maze to a JSON file.
+        write the maze to a JSON file. maze_path (str) is the file path where the maze data will be saved. 
+        can throw an exception if there is an error writing to file
 
-        Parameters:
-            maze_path (str): The file path where the maze data will be saved.
-
-        Raises:
-            Exception: If there is an error while writing the maze data to the JSON file.
-
-        Example Usage:
+        example usage:
             maze_instance = binary_maze(width=10, height=8)
             maze_instance.write_maze_to_file("maze_data.json")
-
         """
 
         # Gathering all relevant maze data
