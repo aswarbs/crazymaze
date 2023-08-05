@@ -1,8 +1,59 @@
+import json
 
 class binary_maze():
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None|Exception:
         
+        if "path" in kwargs:
+            self.create_maze_from_file(kwargs)
+        
+        elif "width" in kwargs and "height" in kwargs:
+            self.create_maze_from_dimensions(kwargs)
+
+        else:
+            return ValueError("binary_maze: failed to initialize, no relevant keyword argument")
+
+    def create_maze_from_file(self, *args, **kwargs) -> None|Exception:
+
+        # File Path
+        file_path = kwargs.get("path")
+
+        # Opening JSON file and reading data
+        json_file: json.TextIOWrapper
+        json_file = open()
+
+        json_data: dict(any, any)
+        json_data = json.load(json_file)
+
+        json_file.close()
+
+        # Checking Variables
+        check_strings: list(str)
+        check_strings = [
+            "maze_width",
+            "maze_height",
+            "maze_binary",
+            "goal_position",
+            "player_spawn"
+        ]
+
+        # Making sure all relevant keywords exist in the file
+        for check_word in check_strings:
+            if check_word not in json_data:
+                return ValueError(f"binary_maze: keyword {check_word} not found in mazefile ({file_path})")
+            else:
+                pass
+            continue
+
+        # Setting Variables
+        self.maze_width = json_data['maze_width']
+        self.maze_height = json_data['maze_height']
+        self.maze = json_data["maze_binary"]
+        self.goal_position = json_data["goal_position"]
+        self.player_spawn = json_data["player_spawn"]
+
+    def create_maze_from_dimensions(self, *args, **kwargs) -> None:
+
         # Getting the maze width
         self.maze_width: int
         try: self.maze_width, width = kwargs.get("width")
@@ -24,6 +75,7 @@ class binary_maze():
         # Goal Row and Column
         self.goal_position: tuple(int, int)
         self.goal_position = (None, None)
+
 
     # Getters & Setters for maze cells
     def get_maze_cell(self, row: int, column: int) -> bool: return self.maze[row][column]
