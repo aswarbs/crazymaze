@@ -18,6 +18,8 @@ class setup_frame(Frame):
         self.master: Tk
         self.master = master
 
+        self.maze_logic = maze_logic
+
         self.parent_window = parent_window
 
         # Retrieve the colour scheme names from the Colour Schemes folder.
@@ -86,8 +88,8 @@ class setup_frame(Frame):
 
         # Create a slider to represent the chosen number of rows.
         rows_slider: Scale
-        self.rows: int
-        rows_slider = Scale(row_frame, from_ = 0, to=100, orient=HORIZONTAL, command=self.on_row_slider_change)
+        self.rows: int = 8
+        rows_slider = Scale(row_frame, from_ = 8, to=100, orient=HORIZONTAL, command=self.on_row_slider_change)
         rows_slider.pack(side=LEFT)
 
         row_frame.pack(side=LEFT, expand=TRUE)
@@ -98,8 +100,8 @@ class setup_frame(Frame):
 
         # Create a slider to represent the chosen number of columns.
         columns_slider: Scale
-        self.columns: int
-        columns_slider = Scale(column_frame, from_ = 0, to=100, orient=HORIZONTAL,command=self.on_column_slider_change)
+        self.columns: int = 8
+        columns_slider = Scale(column_frame, from_ = 8, to=100, orient=HORIZONTAL,command=self.on_column_slider_change)
         columns_slider.pack(side=LEFT)
 
         column_frame.pack(side=LEFT, expand=TRUE)
@@ -151,20 +153,22 @@ class setup_frame(Frame):
         """
         Change the frame to the Game screen.
         """
+
+        self.maze_logic.generate_maze(self.rows, self.columns)
         self.parent_window.change_frame("crazy_maze_game")
 
         pass
 
 
-    def on_row_slider_change(self,value:int) -> None:
+    def on_row_slider_change(self,value:str) -> None:
         """
         Change the value of the row variable.
         """
-        self.rows=value
+        self.rows=int(value)
 
-    def on_column_slider_change(self,value:int) -> None:
+    def on_column_slider_change(self,value:str) -> None:
         """
         Change the value of the column variable.
         """
-        self.columns=value
+        self.columns=int(value)
 
