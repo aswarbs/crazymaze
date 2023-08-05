@@ -1,41 +1,65 @@
+# JSON is a module to serialize/deserialize JSON data
+# It's used here to load and save mazes and their associated data
+# Documentation: https://docs.python.org/3/library/json.html
 import json
 
 class binary_maze():
+    """
+    binary_maze is a class to represent and handle binary mazes.
+
+    This class allows you to create and manage binary mazes. A binary maze is a grid-based maze
+    where each cell can either be open (True) or blocked (False). It also supports saving and
+    loading maze data from a JSON file. To access each cell please use the provided getter and 
+    setter functions.
+    """
 
     def __init__(self, *args, **kwargs) -> None|Exception:
-        
+        """
+        constructor for the binary_maze class. provide different keyword arguments to either create a new
+        maze of 2 dimensions, or load an existing maze from a file:
+            - if "path" keyword is provided, it will load the maze from a JSON file with the given path.
+            - if "width" and "height" keywords are provided, it will create a new maze with the given dimensions.
+
+        if neither keywords are provided, a value exception will be thrown
+
+        example usage (loading from file):
+            maze_instance = binary_maze(path = "maze_data.json")
+
+        example usage (creating from dimensions):
+            maze_instance = binary_maze(width = 10, height=8)
+
+        """
+
         if "path" in kwargs:
-            self.create_maze_from_file(kwargs)
+            self._create_maze_from_file(kwargs)
         
         elif "width" in kwargs and "height" in kwargs:
-            self.create_maze_from_dimensions(kwargs)
+            self._create_maze_from_dimensions(kwargs)
 
         else:
             return ValueError("binary_maze: failed to initialize, no relevant keyword argument")
 
-    def create_maze_from_file(self, kwargs) -> None|Exception:
+    def _create_maze_from_file(self, kwargs) -> None|Exception:
+        """
+        create the maze from the data stored in a JSON file.
+            kwargs (dict): Keyword arguments containing "path" as the key, which specifies the JSON file path.
+
+        can throw a value error if required keywords are non-existent in the provided file
+        """
 
         # File Path
         file_path = kwargs.get("path")
 
-        # Opening JSON file and reading data
+        # Opening JSON file and reading data into json data
         json_file: json.TextIOWrapper
         json_file = open()
-
         json_data: dict(any, any)
         json_data = json.load(json_file)
-
         json_file.close()
 
         # Checking Variables
         check_strings: list[str]
-        check_strings = [
-            "maze_width",
-            "maze_height",
-            "maze_binary",
-            "goal_position",
-            "player_spawn"
-        ]
+        check_strings = ["maze_width", "maze_height", "maze_binary", "goal_position", "player_spawn"]
 
         # Making sure all relevant keywords exist in the file
         for check_word in check_strings:
@@ -52,8 +76,14 @@ class binary_maze():
         self.goal_position = json_data["goal_position"]
         self.player_spawn = json_data["player_spawn"]
 
-    def create_maze_from_dimensions(self, kwargs) -> None:
+    def _create_maze_from_dimensions(self, kwargs) -> None:
+        """
+        create a new maze with given dimensions. uses 'width' and 'height' keywords in kwargs
+            kwargs (dict): Keyword arguments containing "width" and "height" as the keys, specifying the maze dimensions.
 
+        can throw a value error if 'width'/'height' missing, although this is checked in constructor
+        """
+                
         # Getting the maze width
         self.maze_width: int
         try: self.maze_width = kwargs.get("width")
@@ -77,6 +107,20 @@ class binary_maze():
         self.goal_position = (None, None)
 
     def write_maze_to_file(self, maze_path: str) -> None|Exception:
+        """
+        Write the maze to a JSON file.
+
+        Parameters:
+            maze_path (str): The file path where the maze data will be saved.
+
+        Raises:
+            Exception: If there is an error while writing the maze data to the JSON file.
+
+        Example Usage:
+            maze_instance = binary_maze(width=10, height=8)
+            maze_instance.write_maze_to_file("maze_data.json")
+
+        """
 
         # Gathering all relevant maze data
         json_data: dict(any, any) = dict()
