@@ -1,9 +1,10 @@
+# TODO: add tkinter comment
 from tkinter import *
 
 # Generic crazy import
 import crazy_colour_interface as cci
 
-class setup(Frame):
+class setup_frame(Frame):
     """
     Extends Tk.Frame.
 
@@ -13,9 +14,11 @@ class setup(Frame):
     """
 
     # Constructor
-    def __init__(self, master: Tk) -> None:
+    def __init__(self, master: Tk, parent_window, maze_logic) -> None:
         self.master: Tk
         self.master = master
+
+        self.parent_window = parent_window
 
         # Retrieve the colour scheme names from the Colour Schemes folder.
         self.colour_schemes: list(str)
@@ -148,16 +151,18 @@ class setup(Frame):
         """
         Change the frame to the Game screen.
         """
+        self.parent_window.change_frame("crazy_maze_game")
+
         pass
 
 
-    def on_row_slider_change(self,value:int):
+    def on_row_slider_change(self,value:int) -> None:
         """
         Change the value of the row variable.
         """
         self.rows=value
 
-    def on_column_slider_change(self,value:int):
+    def on_column_slider_change(self,value:int) -> None:
         """
         Change the value of the column variable.
         """
