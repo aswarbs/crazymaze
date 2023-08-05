@@ -166,6 +166,9 @@ class binary_maze():
     def get_maze_cell(self, row: int, column: int) -> bool: return self.maze[row][column]
     def set_maze_cell(self, row: int, column: int, value: bool) -> None: self.maze[row][column] = value
 
+    # Setter for internal maze array, should only be used directly by maze generators
+    def set_maze_internal(self, new_maze_internal: list[list[bool]]) -> None: self.maze = new_maze_internal
+
     # Player Start Points Getters and Setters
     def get_player_spawn(self, player_id: int) -> tuple[int, int]|None: return self.player_spawn[player_id]
     def set_player_spawn(self, player_id: int, spawn_row: int, spawn_col: int) -> None: self.player_spawn[player_id] = (spawn_row, spawn_col)
@@ -173,7 +176,7 @@ class binary_maze():
 
     # Getters and setters for the goal position
     def set_goal_position(self, goal_row: int, goal_column: int) -> None: self.goal_position = (goal_row, goal_column)
-    def set_goa_position(self, goal_position_tuple: tuple[int, int]): self.goal_position = goal_position_tuple
+    def set_goal_position(self, goal_position_tuple: tuple[int, int]): self.goal_position = goal_position_tuple
     def get_goal_position(self) -> tuple[int, int]|tuple[None, None]: return self.goal_position
     def get_goal_row(self) -> int|None: return self.goal_position.first
     def get_goal_column(self) -> int|None: return self.goal_position.second
