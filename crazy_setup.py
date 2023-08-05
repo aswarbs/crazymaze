@@ -29,7 +29,6 @@ class setup_frame(Frame):
         self.create_setup_screen()
 
 
-
     def create_setup_screen(self) -> None:
         """
         Initializes the main frame for the setup screen.
@@ -175,4 +174,6 @@ class setup_frame(Frame):
         Change the value of the column variable.
         """
         self.columns=int(value)
+
+
 

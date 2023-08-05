@@ -33,8 +33,6 @@ def find_furthest_points(coordinates):
     max_distance = max(distances.keys())
     return distances[max_distance]
 
-
-
 def surrounding_cells(maze, rand_wall):
     s_cells = 0
     if (maze[rand_wall[0]-1][rand_wall[1]] == 'c'):
