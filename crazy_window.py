@@ -1,6 +1,6 @@
 from tkinter import *
 
-from crazy_maze_game import game_window
+from crazy_maze_game import game_frame
 from crazy_setup import setup_frame
 
 class window():
@@ -22,7 +22,7 @@ class window():
         self.master.title("Crazy Maze")
 
         self.current_frame: setup_frame
-        self.current_frame = setup_frame(self.master, self)
+        self.current_frame = setup_frame(self.master, self, self.maze_logic)
 
         # Start the tk instance
         self.master.mainloop()
@@ -33,7 +33,7 @@ class window():
         """
         self.class_names:dict[str, type]
         self.class_names = {
-             "crazy_maze_game": game_window,
+             "crazy_maze_game": game_frame,
              "crazy_setup": setup_frame
         }
 

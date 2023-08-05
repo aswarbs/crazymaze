@@ -74,7 +74,7 @@ class binary_maze():
 
         # Opening JSON file and reading data into json data
         json_file: json.TextIOWrapper
-        json_file = open()
+        json_file = open(file_path, "r")
         json_data: dict(any, any)
         json_data = json.load(json_file)
         json_file.close()

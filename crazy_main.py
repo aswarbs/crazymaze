@@ -1,3 +1,3 @@
-import crazy_controller
+from crazy_controller import controller
 
-controller = crazy_controller()
+controller = controller()
