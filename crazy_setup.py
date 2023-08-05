@@ -121,6 +121,8 @@ class setup_frame(Frame):
         colour_scheme_dropdown.pack(side=LEFT) 
 
         colour_scheme_frame.pack(side=LEFT, expand=TRUE)
+
+
         return game_options_frame
     
 
@@ -154,7 +156,9 @@ class setup_frame(Frame):
         Change the frame to the Game screen.
         """
 
-        self.maze_logic.generate_maze(self.rows, self.columns)
+        print(f"rows: {self.rows}, cols: {self.columns}")
+
+        self.maze_logic.initialize_game(self.rows, self.columns)
         self.parent_window.change_frame("crazy_maze_game")
 
         pass

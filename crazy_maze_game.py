@@ -42,7 +42,6 @@ class game_frame(Frame):
         """
 
         # Retrieve the dimensions of the grid
-        grid_dimensions:tuple[int,int]
         grid_dimensions = self.logic.maze.get_maze_dimensions()
 
         # Determine the screen resolution
@@ -50,53 +49,51 @@ class game_frame(Frame):
         screen_height = self.winfo_screenheight()
 
         # Calculate the desired square size based on the grid and the screen resolution
-        square_size = min(screen_width // grid_dimensions[0], screen_height // grid_dimensions[1])
+        square_size = min(screen_width // grid_dimensions[1], screen_height // grid_dimensions[0])
+
+        # Calculate the dimensions of each grid cell
+        cell_width = square_size
+        cell_height = square_size
 
         # Calculate the width and height of the canvas
-        width:int
-        width = grid_dimensions[0] * square_size
-        height:int
-        height = grid_dimensions[1] * square_size
+        width = grid_dimensions[1] * cell_width
+        height = grid_dimensions[0] * cell_height
 
         # Create a canvas to store the maze on.
-        canvas:Canvas
         canvas = Canvas(self, width=width, height=height, bg="white")
-        canvas.pack()
+        canvas.pack()  # Pack the canvas inside the frame
 
-        self.draw_grid(canvas, grid_dimensions, width, height)
+        self.draw_grid(canvas, grid_dimensions, cell_width, cell_height)
 
-    def draw_grid(self, canvas:Canvas, dimensions:tuple[int,int], width:int, height:int) -> None:
+
+    def draw_grid(self, canvas: Canvas, dimensions: tuple[int, int], cell_width: int, cell_height: int) -> None:
         """
         Draw the maze grid to the canvas.
         """
 
-        # Determine the width and height of the square.
-        square_width: float
-        square_width = width // dimensions[0]
-        square_height:float
-        square_height = height // dimensions[1]
-        
         # For each square in the grid,
         for row in range(dimensions[0]):
             for col in range(dimensions[1]):
-
-                # Calculate the coordinates of the square.
-                x1:int = col * square_width
-                y1:int = row * square_height
-                x2:int = x1 + square_width
-                y2:int = y1 + square_height
+                # Calculate the coordinates of the rectangle.
+                x1 = col * cell_width
+                y1 = row * cell_height
+                x2 = x1 + cell_width
+                y2 = y1 + cell_height
 
                 # Retrieve if the square is path or wall.
-                is_cell_path:bool = self.logic.maze.get_maze_cell(row, col)
-
+                is_cell_path = self.logic.maze.get_maze_cell(row, col)
                 # If the square is path, it is green.
                 # If the square is wall, it is red.
-                if(is_cell_path):
+                if is_cell_path:
                     canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="green")
                 else:
                     canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="red")
 
-                
+                for player in self.logic.players:
+                    if(player["position"][0] == row and player["position"][1] == col):
+                        canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=player["colour"])
+                        
+
 
     def create_game_options(self) -> Frame:
         """
