@@ -152,6 +152,3 @@ class binary_maze():
     def get_maze_width(self) -> int: return self.maze_width
     def get_maze_height(self) -> int: return self.maze_height
     def get_maze_dimensions(self) -> tuple[int, int]: return (self.maze_width, self.maze_height)
-
-x = binary_maze(width = 10, height = 10)
-x.write_maze_to_file("test_maze.json")
