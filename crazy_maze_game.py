@@ -16,6 +16,8 @@ class game_frame(Frame):
 
         self.parent_window = parent_window
 
+        self.master.bind("<KeyRelease>", self.logic.on_key_released)
+
         self.create_game_screen()
 
     def create_game_screen(self) -> None:
@@ -90,10 +92,11 @@ class game_frame(Frame):
                     canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="red")
 
                 for player in self.logic.players:
-                    if(player["position"][0] == row and player["position"][1] == col):
-                        canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=player["colour"])
-                        
+                    if(player.position[0] == row and player.position[1] == col):
+                        canvas.create_oval(x1, y1, x2, y2, outline="black", fill=player.colour)
 
+        self.after(10,lambda:self.draw_grid(canvas, dimensions, cell_width, cell_height))
+                     
 
     def create_game_options(self) -> Frame:
         """
