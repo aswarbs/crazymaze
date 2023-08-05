@@ -1,3 +1,4 @@
-from crazy_setup import setup
+# Import the setup screen
+from crazy_window import window
 
-setup_screen = setup()
+main_window = window()
