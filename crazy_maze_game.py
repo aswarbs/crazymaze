@@ -1,10 +1,12 @@
 from tkinter import *
 
-class game(Frame):
+class game_window(Frame):
 
-    def __init__(self, master:Tk, parent_window) -> None:
+    def __init__(self, master:Tk, parent_window, maze_logic) -> None:
         self.master: Tk
         self.master = master
+
+        self.maze_logic = maze_logic
 
         self.parent_window = parent_window
 

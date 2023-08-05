@@ -1,13 +1,15 @@
 from tkinter import *
 
-from crazy_maze_game import game
-from crazy_setup import setup
+from crazy_maze_game import game_window
+from crazy_setup import setup_frame
 
 class window():
-    def __init__(self) -> None:
+    def __init__(self, maze_logic) -> None:
         # Initiating the Tk Instance
         self.master: Tk
         self.master = Tk()
+
+        self.maze_logic = maze_logic
 
         self.init_frames_dictionary()
 
@@ -19,8 +21,8 @@ class window():
 
         self.master.title("Crazy Maze")
 
-        self.current_frame: setup
-        self.current_frame = setup(self.master, self)
+        self.current_frame: setup_frame
+        self.current_frame = setup_frame(self.master, self)
 
         # Start the tk instance
         self.master.mainloop()
@@ -31,8 +33,8 @@ class window():
         """
         self.class_names:dict[str, type]
         self.class_names = {
-             "crazy_maze_game": game,
-             "crazy_setup": setup
+             "crazy_maze_game": game_window,
+             "crazy_setup": setup_frame
         }
 
     def change_frame(self, new_frame_name:str):
@@ -41,7 +43,7 @@ class window():
             """
             self.current_frame.pack_forget()
             frame = self.class_names.get(new_frame_name)
-            self.current_frame = frame(self.master, self)
+            self.current_frame = frame(self.master, self, self.maze_logic)
             self.current_frame.pack()
 
 

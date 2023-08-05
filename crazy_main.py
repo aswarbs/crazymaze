@@ -1,5 +1,3 @@
-# Import the setup screen
-from crazy_window import window
+import crazy_controller
 
-main_window: window
-main_window = window()
+controller = crazy_controller()
