@@ -35,5 +35,13 @@ class binary_maze():
     def set_player_spawn(self, player_id: int, spawn: tuple(int, int)) -> None: self.player_spawn[player_id] = spawn
 
     # Getters and setters for the goal position
-    def set_goal(self, goal_row: int, goal_column: int) -> None: self.goal_position = (goal_row, goal_column)
-    def set_goal(self, goal_position_tuple: tuple(int, int)): self.goal_position = goal_position_tuple
+    def set_goal_position(self, goal_row: int, goal_column: int) -> None: self.goal_position = (goal_row, goal_column)
+    def set_goa_position(self, goal_position_tuple: tuple(int, int)): self.goal_position = goal_position_tuple
+    def get_goal_position(self) -> tuple(int, int)|tuple(None, None): return self.goal_position
+    def get_goal_row(self) -> int|None: return self.goal_position.first
+    def get_goal_column(self) -> int|None: return self.goal_position.second
+
+    # Getters for width and height 
+    def get_maze_width(self) -> int: return self.maze_width
+    def get_maze_height(self) -> int: return self.maze_height
+    def get_maze_dimensions(self) -> tuple(int, int): return (self.maze_width, self.maze_height)
