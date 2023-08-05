@@ -3,6 +3,13 @@
 # Documentation: https://docs.python.org/3/library/json.html
 import json
 
+# Random is a module used to generate random numbers
+# Here it is used to generate random noise mazes (there are incompleteable, just for testing)
+# Documentation: https://docs.python.org/3/library/random.html
+import random
+
+DEFAULT_MAZE_BLOCK = '-'
+
 class binary_maze():
     """
     binary_maze is a class to represent and handle binary mazes.
@@ -19,6 +26,7 @@ class binary_maze():
         maze of 2 dimensions, or load an existing maze from a file:
             - if "path" keyword is provided, it will load the maze from a JSON file with the given path.
             - if "width" and "height" keywords are provided, it will create a new maze with the given dimensions.
+            - if "random" and "width" and "height" keywords, it will fill the maze with random noise (impossible to complete)
 
         if neither keywords are provided, a value exception will be thrown
 
@@ -27,7 +35,6 @@ class binary_maze():
 
         example usage (creating from dimensions):
             maze_instance = binary_maze(width = 10, height=8)
-
         """
 
         if "path" in kwargs:
@@ -38,6 +45,21 @@ class binary_maze():
 
         else:
             return ValueError("binary_maze: failed to initialize, no relevant keyword argument")
+
+    def __repr__(self) -> str:
+        """
+        provides the string representation of the binary maze
+        """
+
+        # Uses list comprehension
+        string: str
+        string = "\n".join(
+            "".join(" " if self.maze[row][column] else DEFAULT_MAZE_BLOCK for column in range(self.maze_width))
+            for row in range(self.maze_height)
+        )
+
+        return string
+
 
     def _create_maze_from_file(self, kwargs) -> None|Exception:
         """
@@ -96,7 +118,15 @@ class binary_maze():
 
         # Creating a binary 2D array  of the map
         self.maze: list(int)
-        self.maze = [[True for row in range(0, self.maze_height)] for column in range(0, self.maze_width)]
+        self.maze = [[True for row in range(0, self.maze_width)] for column in range(0, self.maze_height)]
+
+        # Check for random noise generation, if true make random
+        if "random" in kwargs:
+            if kwargs.get("random") is True:
+                self.maze = [[bool(random.getrandbits(1)) for row in range(0, self.maze_width)] for column in range(0, self.maze_height)]
+            else:
+                pass
+        
 
         # Player Start Point Dictionary, default is None
         self.player_spawn: dict[int, tuple[int, int]|None] = {}
@@ -152,3 +182,9 @@ class binary_maze():
     def get_maze_width(self) -> int: return self.maze_width
     def get_maze_height(self) -> int: return self.maze_height
     def get_maze_dimensions(self) -> tuple[int, int]: return (self.maze_width, self.maze_height)
+
+# Testing, just displaying a printed maze
+if __name__ == "__main__":
+    print("binary_maze: generating a maze:")
+    test_maze = binary_maze(width = 50, height = 5, random = True)
+    print(test_maze)
