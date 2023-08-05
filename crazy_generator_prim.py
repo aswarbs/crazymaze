@@ -3,9 +3,9 @@
 import random
 import time
 
-SYMBOL_WALL = "W"
-SYMBOL_CELL = " "
-SYMBOL_UNVISITED = "U"
+SYMBOL_WALL = "w"
+SYMBOL_CELL = "c"
+SYMBOL_UNVISITED = "u"
 
 # Init variables
 wall = SYMBOL_WALL
@@ -239,6 +239,15 @@ def generate_maze_prim(width, height):
             # find player spawns and goal
             # Use pythagoras to distance?
             pass
+    
+    return maze
 
 if __name__ == "__main__":
-    x = generate_maze_prim()
+    x = generate_maze_prim(10, 10)
+
+    for x2 in range(len(x[0])):
+        for y in range(len(x)):
+            print(x[x2][y], end=" ")
+        print("\n")
+                   
+    
