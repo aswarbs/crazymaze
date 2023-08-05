@@ -1,6 +1,11 @@
-from crazy_binary_maze import binary_maze
+
+from crazy_generator_dfs import *
 
 class maze_logic():
 
     def __init__(self) -> None:
-        self.maze = binary_maze(path="test_maze.json")
+        pass
+
+    def generate_maze(self, width:int, height:int) -> None:
+        self.maze = generate_maze_dfs(width, height)
+        print(self.maze)
