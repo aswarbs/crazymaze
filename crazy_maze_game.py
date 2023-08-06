@@ -54,13 +54,13 @@ class game_frame(Frame):
         screen_height = self.winfo_screenheight()
 
         # Calculate the desired square size based on the grid and the screen resolution
-        square_size = min(screen_width // self.grid_dimensions[1], screen_height // self.grid_dimensions[0])
+        square_size = min(screen_width // self.grid_dimensions[0], screen_height // self.grid_dimensions[1])
 
         # Calculate the dimensions of each grid cell
         self.cell_width = square_size
         self.cell_height = square_size
 
-        # Calculate the width and height of the canvas
+        # Calculate the width and height of the canvas based on the grid and cell size
         width = self.grid_dimensions[1] * self.cell_width
         height = self.grid_dimensions[0] * self.cell_height
 
@@ -69,6 +69,7 @@ class game_frame(Frame):
         self.canvas.pack()  # Pack the canvas inside the frame
 
         self.draw_grid()
+
 
     def draw_grid(self) -> None:
         """
