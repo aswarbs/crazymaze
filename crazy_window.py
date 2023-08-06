@@ -4,12 +4,13 @@ from crazy_maze_game import game_frame
 from crazy_setup import setup_frame
 
 class window():
-    def __init__(self, maze_logic) -> None:
+    def __init__(self, controller) -> None:
         # Initiating the Tk Instance
         self.master: Tk
         self.master = Tk()
 
-        self.maze_logic = maze_logic
+        self.controller = controller
+        self.maze_logic = self.controller.game_logic
 
         self.init_frames_dictionary()
 
@@ -22,10 +23,8 @@ class window():
         self.master.title("Crazy Maze")
 
         self.current_frame: setup_frame
-        self.current_frame = setup_frame(self.master, self, self.maze_logic)
+        self.current_frame = setup_frame(self.master, self)
 
-        # Start the tk instance
-        self.master.mainloop()
 
     def init_frames_dictionary(self) -> None:
         """
@@ -43,7 +42,7 @@ class window():
             """
             self.current_frame.pack_forget()
             frame = self.class_names.get(new_frame_name)
-            self.current_frame = frame(self.master, self, self.maze_logic)
+            self.current_frame = frame(self.master, self)
             self.current_frame.pack()
 
 

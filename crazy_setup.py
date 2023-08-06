@@ -14,11 +14,11 @@ class setup_frame(Frame):
     """
 
     # Constructor
-    def __init__(self, master: Tk, parent_window, maze_logic) -> None:
+    def __init__(self, master: Tk, parent_window) -> None:
         self.master: Tk
         self.master = master
 
-        self.maze_logic = maze_logic
+        self.maze_logic = parent_window.controller.game_logic
 
         self.parent_window = parent_window
 

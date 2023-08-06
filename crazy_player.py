@@ -1,11 +1,12 @@
 import random
-import numpy as np
 
 class player:
     def __init__(self, spawn, id):
 
-        self.position = np.asarray(spawn)
+        self.position = [spawn[0], spawn[1]]
         self.colour = self.generate_random_hex()
+        self.id = id
+
         if(id == 0):
             self.controls = ["W", "A", "S", "D"]
         elif(id == 1):
@@ -28,7 +29,6 @@ class player:
     
     def move(self, direction:str):
 
-        print(self.position)
         if(direction == "up"):
             self.position[0] -= 1
         elif(direction == "down"):
@@ -37,3 +37,5 @@ class player:
             self.position[1] -= 1
         elif(direction == "right"):
             self.position[1] += 1
+
+        print("new position: ", self.position)
