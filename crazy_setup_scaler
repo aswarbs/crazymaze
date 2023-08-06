@@ -26,7 +26,7 @@ class scaler_widget (Frame):
         row_increase_button.pack(side="left")
 
         # Canvas to display the grid
-        self.canvas = Canvas(self, width=300, height=300, bg="white")
+        self.canvas = Canvas(self, width=300, height=300, bg="black")
         self.canvas.pack(side="left")
 
         counter_frame = Frame(self)
@@ -64,7 +64,7 @@ class scaler_widget (Frame):
                 y1 = row * self.cell_size
                 x2 = x1 + self.cell_size
                 y2 = y1 + self.cell_size
-                self.canvas.create_rectangle(x1, y1, x2, y2, fill="white", outline="black")
+                self.canvas.create_rectangle(x1, y1, x2, y2, fill="black", outline="white")
 
     def increase_rows(self):
         self.row_counter.set(str(int(self.row_counter.get()) + 1))
