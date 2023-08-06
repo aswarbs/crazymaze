@@ -65,20 +65,22 @@ class game_frame(Frame):
         height = self.grid_dimensions[0] * self.cell_height
 
         # Create a canvas to store the maze on.
-        self.canvas = Canvas(self, width=width, height=height, bg="white")
+        self.canvas = Canvas(self, width=width, height=height, bg="red")
         self.canvas.pack()  # Pack the canvas inside the frame
 
-        self.draw_grid(self.grid_dimensions)
+        self.draw_grid()
 
-
-    def draw_grid(self, dimensions: tuple[int, int]) -> None:
+    def draw_grid(self) -> None:
         """
         Draw the maze grid to the canvas.
         """
 
+        # Clear the canvas before drawing the grid
+        self.canvas.delete("all")
+
         # For each square in the grid,
-        for row in range(dimensions[0]):
-            for col in range(dimensions[1]):
+        for row in range(self.grid_dimensions[0]):
+            for col in range(self.grid_dimensions[1]):
                 # Calculate the coordinates of the rectangle.
                 x1 = col * self.cell_width
                 y1 = row * self.cell_height
@@ -90,27 +92,37 @@ class game_frame(Frame):
                 # If the square is path, it is green.
                 # If the square is wall, it is red.
                 if is_cell_path:
-                    self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="green")
-                else:
-                    self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="red")
-
+                    self.canvas.create_rectangle(x1, y1, x2, y2, fill="green", outline="")
 
         # Draw the first player to the screen.
         player1_position = self.logic.player1.position
         player1_colour = self.logic.player1.colour
-        self.player1_sprite = self.create_sprite(player1_position, player1_colour)
+        self.player1_sprite = self.create_sprite(player1_position, player1_colour, "player")
 
         # Draw the second player to the screen.
         player2_position = self.logic.player2.position
         player2_colour = self.logic.player2.colour
-        self.player2_sprite = self.create_sprite(player2_position, player2_colour)
+        self.player2_sprite = self.create_sprite(player2_position, player2_colour, "player")
 
         # Draw the goal to the screen.
-        goal_position = self.logic.maze.get_goal_position()
+        self.goal_position = self.logic.maze.get_goal_position()
         goal_colour = "#FFFFFF"
-        self.create_sprite(goal_position, goal_colour)
+        self.create_sprite(self.goal_position, goal_colour, "goal")
 
-    def create_sprite(self, tuple:[int,int], colour:str) -> int:
+    def handle_win_condition(self, player_id: int):
+        if player_id == 0:
+            self.player1_score += 1
+            self.player1_score_label.config(text=self.player1_score)
+        elif player_id == 1:
+            self.player2_score += 1
+            self.player2_score_label.config(text=self.player2_score)
+
+        # Reset the maze
+        self.logic.initialize_game(self.grid_dimensions[0], self.grid_dimensions[1])
+        self.draw_grid()
+
+
+    def create_sprite(self, tuple:[int,int], colour:str, type:str) -> int:
         """
         Create a sprite on the screen in the corresponding tuple position, with the corresponding colour.
         """
@@ -126,7 +138,10 @@ class game_frame(Frame):
         y2 = y1 + self.cell_height
 
         # Create and return the corresponding sprite.
-        sprite = self.canvas.create_oval(x1, y1, x2, y2, outline="black", fill=colour)
+        if(type == "player"):
+            sprite = self.canvas.create_oval(x1, y1, x2, y2, outline="black", fill=colour)
+        else:
+            sprite = self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=colour)
         return sprite
 
 
@@ -159,6 +174,11 @@ class game_frame(Frame):
         if(not self.logic.maze.get_maze_cell(current_y, current_x)):
             return False
         
+        # If a player has hit the goal, handle the win condition
+        if(current_x == self.goal_position[1] and current_y == self.goal_position[0]):
+            self.handle_win_condition(player_id)
+            return False
+        
         # Else, move the position of the corresponding player on the screen.
         if(player_id == 0):
             self.canvas.move(self.player1_sprite, (change_x * self.cell_width), (change_y * self.cell_height))
@@ -166,6 +186,8 @@ class game_frame(Frame):
             self.canvas.move(self.player2_sprite, (change_x * self.cell_width), (change_y * self.cell_height))
 
         return True
+    
+
 
     def create_game_options(self) -> Frame:
         """
@@ -175,9 +197,36 @@ class game_frame(Frame):
         game_options_frame: Frame
         game_options_frame = Frame(self)
 
+        score_frame = Frame(game_options_frame)
+
+        player1_frame = Frame(score_frame)
+
+        player1_label = Label(player1_frame, text="Player 1")
+        player1_label.pack()
+
+        self.player1_score = 0
+        self.player1_score_label = Label(player1_frame, text=self.player1_score)
+        self.player1_score_label.pack()
+
+        player1_frame.pack(side=LEFT)
+
+        player2_frame = Frame(score_frame)
+
+        player2_label = Label(player2_frame, text="Player 2")
+        player2_label.pack()
+
+        self.player2_score = 0
+        self.player2_score_label = Label(player2_frame, text=self.player2_score)
+        self.player2_score_label.pack()
+
+        player2_frame.pack(side=LEFT)
+
+        score_frame.pack(side=TOP)
+        
         back_button: Button
         back_button = Button(game_options_frame, text="Back", command=self.return_to_setup)
         back_button.pack()
+
 
         return game_options_frame
 

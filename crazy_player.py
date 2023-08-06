@@ -37,5 +37,3 @@ class player:
             self.position[1] -= 1
         elif(direction == "right"):
             self.position[1] += 1
-
-        print("new position: ", self.position)
