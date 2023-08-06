@@ -28,12 +28,10 @@ def find_furthest_points(coordinates):
     for p1, p2, p3 in itertools.combinations(coordinates, 3):
         d1 = euclidean_distance(p1, p2)
         d2 = euclidean_distance(p2, p3)
-        distances[d1+d1] = (p1, p2, p3)
+        distances[d1+d2] = (p1, p2, p3)
 
     max_distance = max(distances.keys())
     return distances[max_distance]
-
-
 
 def surrounding_cells(maze, rand_wall):
     s_cells = 0
