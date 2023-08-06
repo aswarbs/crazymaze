@@ -17,6 +17,7 @@ class game_frame(Frame):
 
         self.parent_window = parent_window
 
+        # Bind key releases to a method in controller which will handle the corresponding actions.
         self.master.bind("<KeyRelease>", self.controller.on_key_released)
 
         self.create_game_screen()
@@ -93,26 +94,48 @@ class game_frame(Frame):
                 else:
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="red")
 
-        player1_x = self.logic.player1.position[1]
-        player1_y = self.logic.player1.position[0]
-        player1_x1 = player1_x * self.cell_width
-        player1_y1 = player1_y * self.cell_height
-        player1_x2 = player1_x1 + self.cell_width
-        player1_y2 = player1_y1 + self.cell_height
 
-        player2_x = self.logic.player2.position[1]
-        player2_y = self.logic.player2.position[0]
-        player2_x1 = player2_x * self.cell_width
-        player2_y1 = player2_y * self.cell_height
-        player2_x2 = player2_x1 + self.cell_width
-        player2_y2 = player2_y1 + self.cell_height
-        
-        self.player1_sprite = self.canvas.create_oval(player1_x1, player1_y1, player1_x2, player1_y2, outline="black", fill=self.logic.player1.colour)
-        self.player2_sprite = self.canvas.create_oval(player2_x1, player2_y1, player2_x2, player2_y2, outline="black", fill=self.logic.player2.colour)
+        # Draw the first player to the screen.
+        player1_position = self.logic.player1.position
+        player1_colour = self.logic.player1.colour
+        self.player1_sprite = self.create_sprite(player1_position, player1_colour)
+
+        # Draw the second player to the screen.
+        player2_position = self.logic.player2.position
+        player2_colour = self.logic.player2.colour
+        self.player2_sprite = self.create_sprite(player2_position, player2_colour)
+
+        # Draw the goal to the screen.
+        goal_position = self.logic.maze.get_goal_position()
+        goal_colour = "#FFFFFF"
+        self.create_sprite(goal_position, goal_colour)
+
+    def create_sprite(self, tuple:[int,int], colour:str) -> int:
+        """
+        Create a sprite on the screen in the corresponding tuple position, with the corresponding colour.
+        """
+
+        # Retrieve the x and y coordinates from the tuple.
+        x = tuple[1]
+        y = tuple[0]
+
+        # Calculate the boundaries of the shape.
+        x1 = x * self.cell_width
+        y1 = y * self.cell_height
+        x2 = x1 + self.cell_width
+        y2 = y1 + self.cell_height
+
+        # Create and return the corresponding sprite.
+        sprite = self.canvas.create_oval(x1, y1, x2, y2, outline="black", fill=colour)
+        return sprite
 
 
-    def update_position(self, player_id, change_x, change_y):
+    def update_position(self, player_id:int, change_x:int, change_y:int) -> bool:
+        """
+        Update the position of a player on the screen.
+        """
 
+        # Retrieve the coordinates from the corresponding player.
         if(player_id == 0):
             player_x = self.logic.player1.position[1]
             player_y = self.logic.player1.position[0]
@@ -120,18 +143,23 @@ class game_frame(Frame):
             player_x = self.logic.player2.position[1]
             player_y = self.logic.player2.position[0]
 
+        # Calculate the new coordinates of the player.
         current_x = player_x + change_x
         current_y = player_y + change_y
 
+        # If the x coordinate is not in the maze, return false.
         if(current_x < 0 or current_x > self.grid_dimensions[1]):
             return False
         
+        # If the y coordinate is not in the maze, return false.
         if(current_y < 0 or current_y > self.grid_dimensions[0]):
             return False
         
+        # If the coordinate is not a valid path, return false.
         if(not self.logic.maze.get_maze_cell(current_y, current_x)):
             return False
         
+        # Else, move the position of the corresponding player on the screen.
         if(player_id == 0):
             self.canvas.move(self.player1_sprite, (change_x * self.cell_width), (change_y * self.cell_height))
         elif(player_id == 1):

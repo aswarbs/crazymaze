@@ -5,48 +5,44 @@ from crazy_maze_logic import maze_logic
 class controller():
     def __init__(self) -> None:
 
+        # Create a dictionary mapping a possible move key to a tuple,
+        # containing the corresponsing direction, playerid, change in x and change in y.
+        self.PLAYER_MOVES: dict[str: (str, int, int, int)]
+        self.PLAYER_MOVES = {
+            'w': ("up", 0, 0, -1),
+            's': ("down", 0, 0, 1),
+            'a': ("left", 0, -1, 0),
+            'd': ("right", 0, 1, 0),
+            'Up': ("up", 1, 0, -1),
+            'Down': ("down", 1, 0, 1),
+            'Left': ("left", 1, -1, 0),
+            'Right': ("right", 1, 1, 0)
+        }
         
-
+        # Create an instance of the game logic and window. Start the GUI.
         self.game_logic = maze_logic(self)
-
         self.main_window = window(self)
-
         self.main_window.master.mainloop()
 
-    def on_key_released(self,event):
-        if event.keysym == 'w':
-            valid = self.main_window.current_frame.update_position(0, 0, -1)
-            if(valid):
-                self.game_logic.player1.move("up")
-        elif event.keysym == 's':
-            valid = self.main_window.current_frame.update_position(0, 0, 1)
-            if(valid):
-                self.game_logic.player1.move("down")
-        elif event.keysym == 'a':
-            valid = self.main_window.current_frame.update_position(0, -1, 0)
-            if(valid):
-                self.game_logic.player1.move("left")
-        elif event.keysym == 'd':
-            valid = self.main_window.current_frame.update_position(0, 1, 0)
-            if(valid):
-                self.game_logic.player1.move("right")
+    def on_key_released(self, event):
+        """
+        Handle key presses and corresponding player movement and game logic.
+        """
 
-        elif event.keysym == 'Up':
-            valid = self.main_window.current_frame.update_position(1, 0, -1)
-            if(valid):
-                self.game_logic.player2.move("up")
-        elif event.keysym == 'Down':
-            valid = self.main_window.current_frame.update_position(1, 0, 1)
-            if(valid):
-                self.game_logic.player2.move("down")
-        elif event.keysym == 'Left':
-            valid = self.main_window.current_frame.update_position(1, -1, 0)
-            if(valid):
-                self.game_logic.player2.move("left")
-        elif event.keysym == 'Right':
-            valid = self.main_window.current_frame.update_position(1, 1, 0)
-            if(valid):
-                self.game_logic.player2.move("right")
+        # If the key pressed is in WASD or arrows,
+        if event.keysym in self.PLAYER_MOVES:
+            # Retrieve the corresponding player information from the PLAYER_MOVES dictionary.
+            direction, player_num, dx, dy = self.PLAYER_MOVES[event.keysym]
+            # Retrieve whether the corresponding move is valid.
+            valid = self.main_window.current_frame.update_position(player_num, dx, dy)
+            if valid:
+                # Move the player to the new position.
+                player = self.game_logic.player1 if player_num == 0 else self.game_logic.player2
+                player.move(direction)
+
+
+
+
 
 
 
