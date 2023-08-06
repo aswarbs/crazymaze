@@ -12,7 +12,12 @@ class scaler_widget (Frame):
         self.setup_widgets()
 
     def setup_widgets(self):
-        counter_frame1 = Frame(self)
+
+        label = Label(self, text = "Select Maze Size")
+        label.pack()
+
+        bframe = Frame(self)
+        counter_frame1 = Frame(bframe)
         counter_frame1.pack(side="left")
 
         # Buttons and Entry for the row counter
@@ -26,10 +31,10 @@ class scaler_widget (Frame):
         row_increase_button.pack(side="left")
 
         # Canvas to display the grid
-        self.canvas = Canvas(self, width=300, height=300, bg="black")
+        self.canvas = Canvas(bframe, width=300, height=300, bg="black")
         self.canvas.pack(side="left")
 
-        counter_frame = Frame(self)
+        counter_frame = Frame(bframe)
         counter_frame.pack(side="right")
 
         # Buttons and Entry for the column counter
@@ -41,12 +46,20 @@ class scaler_widget (Frame):
         column_entry.pack(side="left")
         column_increase_button = Button(counter_frame, text=">", command=self.increase_columns)
         column_increase_button.pack(side="left")
+        bframe.pack()
 
         # Cell size in pixels
         self.cell_size = 15
 
+        # Show maze dimensions
+        self.dimension_label = Label(self, text = str(self.column_counter.get()) + "x" + str(self.row_counter.get()))
+        self.dimension_label.pack(side="bottom")
+
         # Call the update_canvas function initially to set up the grid
         self.update_canvas()
+
+    def get_rows_cols(self) -> tuple[int, int]:
+        return (int(self.column_counter.get()), int(self.row_counter.get()))
 
     def update_canvas(self):
         rows = int(self.row_counter.get())
@@ -54,17 +67,20 @@ class scaler_widget (Frame):
 
         self.canvas.delete("all")
 
-        canvas_width = columns * self.cell_size
-        canvas_height = rows * self.cell_size
+        canvas_width = (columns * self.cell_size) + 40
+        canvas_height = (rows * self.cell_size) + 40
         self.canvas.config(width=canvas_width, height=canvas_height)
 
         for row in range(rows):
             for col in range(columns):
-                x1 = col * self.cell_size
-                y1 = row * self.cell_size
-                x2 = x1 + self.cell_size
-                y2 = y1 + self.cell_size
+                x1 = (col * self.cell_size) + 20
+                y1 = (row * self.cell_size) + 20
+                x2 = (x1 + self.cell_size)
+                y2 = (y1 + self.cell_size) 
                 self.canvas.create_rectangle(x1, y1, x2, y2, fill="black", outline="white")
+        
+        self.dimension_label.config(text = str(self.column_counter.get()) + "x" + str(self.row_counter.get()))
+        self.dimension_label.update()
 
     def increase_rows(self):
         self.row_counter.set(str(int(self.row_counter.get()) + 1))
