@@ -1,6 +1,6 @@
 import random
 from typing import List, Tuple
-from crazy_binary_maze import *
+from codebank.src_logic.crazy_binary_maze import *
 
 def get_neighbors(row: int, col: int, width: int, height: int) -> List[Tuple[int, int]]:
     
