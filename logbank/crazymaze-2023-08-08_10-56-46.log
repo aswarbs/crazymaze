@@ -1,0 +1,8 @@
+2023-08-08 10:56:46,639 - DEBUG - crazy_script_scanner: scanning 2 files ending in .py in scriptbank/:
+ 
+2023-08-08 10:56:46,639 - DEBUG - 	crazy_script_scanner : script 0 : testing scriptbank/crazy_generator_dfs.py with a 10x10 test maze
+2023-08-08 10:56:46,640 - DEBUG - 	crazy_script_scanner : script 0 : successfully executed 0
+
+2023-08-08 10:56:46,640 - DEBUG - 	crazy_script_scanner : script 1 : testing scriptbank/crazy_generator_prim.py with a 10x10 test maze
+2023-08-08 10:56:46,642 - DEBUG - 	crazy_script_scanner : script 1 : successfully executed 1
+
