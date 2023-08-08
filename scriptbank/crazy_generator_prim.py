@@ -4,7 +4,7 @@ import random
 import time
 import itertools
 import math
-from crazy_binary_maze import *
+from codebank.src_logic.crazy_binary_maze import *
 
 SYMBOL_WALL = "w"
 SYMBOL_CELL = "c"

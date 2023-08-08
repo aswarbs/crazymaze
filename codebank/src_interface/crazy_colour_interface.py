@@ -1,7 +1,7 @@
 import os
 
 COLOUR_SCHEME_FOLDER: str
-COLOUR_SCHEME_FOLDER = "./crazy_colour_schemes"
+COLOUR_SCHEME_FOLDER = "databank/crazy_colour_schemes"
 
 def scan_colour_schemes() -> list[str]:
     """

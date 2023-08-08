@@ -2,7 +2,7 @@
 from tkinter import *
 
 # Generic crazy import
-import crazy_colour_interface as cci
+import codebank.src_interface.crazy_colour_interface as cci
 
 class setup_frame(Frame):
     """

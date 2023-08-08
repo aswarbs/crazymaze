@@ -1,6 +1,6 @@
 
-from crazy_generator_prim import *
-from crazy_player import player
+from scriptbank.crazy_generator_prim import *
+from codebank.src_logic.crazy_player import player
 
 class maze_logic():
 

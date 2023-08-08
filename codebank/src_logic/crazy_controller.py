@@ -1,6 +1,6 @@
 # Import the setup screen
-from crazy_window import window
-from crazy_maze_logic import maze_logic
+from codebank.src_interface.crazy_window import window
+from codebank.src_logic.crazy_maze_logic import maze_logic
 
 class controller():
     def __init__(self) -> None:

@@ -1,7 +1,7 @@
 from tkinter import *
 
-from crazy_maze_game import game_frame
-from crazy_setup import setup_frame
+from codebank.src_interface.crazy_maze_game import game_frame
+from codebank.src_interface.crazy_setup import setup_frame
 
 class window():
     def __init__(self, controller) -> None:
