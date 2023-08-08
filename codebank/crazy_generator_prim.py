@@ -302,7 +302,7 @@ def generate_maze_prim(rows, columns) -> binary_maze:
     return binary_maze_instance
 
 if __name__ == "__main__":
-    bin_maze_test = generate_maze_prim(20, 20)
+    bin_maze_test = generate_maze_prim(100, 100)
     print(bin_maze_test)
                    
     
