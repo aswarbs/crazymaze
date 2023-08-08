@@ -1,5 +1,5 @@
+from codebank.logger import *
 import os
-import logging
 
 def find_scripts(directory: str = "scriptbank/", show_errors: bool = False):
 
