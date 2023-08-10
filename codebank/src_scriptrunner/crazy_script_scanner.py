@@ -13,10 +13,8 @@ def find_scripts(directory: str = "scriptbank/", show_errors: bool = False) -> l
     python_files = [os.path.join(root, file) for root, _, files in os.walk(directory) for file in files if file.endswith(".py")]
     logging.debug(f"crazy_script_scanner: scanning {len(python_files)} files ending in .py in scriptbank/:\n ")
 
-    # Creating (dummy) variables to be used in (test) maze generation
-    rows = 5
-    columns = 5
-    seed = 5
+    # Creating (dummy) variables to be used in (test) maze generation, these are all of type int.
+    rows, columns, seed = 5, 5, 5
     return_queue = Queue()
 
     # For each script, try and run it using a 10x10 test array, to ensure it is a valid file.
