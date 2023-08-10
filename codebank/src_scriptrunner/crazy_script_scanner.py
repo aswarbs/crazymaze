@@ -1,5 +1,6 @@
 from codebank.logger import *
 import os
+from queue import Queue
 
 def find_scripts(directory: str = "scriptbank/", show_errors: bool = False):
     """
@@ -12,6 +13,12 @@ def find_scripts(directory: str = "scriptbank/", show_errors: bool = False):
     python_files = [os.path.join(root, file) for root, _, files in os.walk(directory) for file in files if file.endswith(".py")]
     logging.debug(f"crazy_script_scanner: scanning {len(python_files)} files ending in .py in scriptbank/:\n ")
 
+    # Creating (dummy) variables to be used in (test) maze generation
+    rows = 5
+    columns = 5
+    seed = 5
+    return_queue = Queue()
+
     # For each script, try and run it using a 10x10 test array, to ensure it is a valid file.
     for script_index, script_path in enumerate(python_files):
         logging.debug(f"\tcrazy_script_scanner : script {script_index} : testing {script_path} with a 10x10 test maze")
@@ -22,7 +29,7 @@ def find_scripts(directory: str = "scriptbank/", show_errors: bool = False):
                 script_content = file.read()
             
             # Attempt to execute script
-            exec(script_content)
+            exec(script_content, {'rows': rows, 'columns': columns, 'seed': seed, 'return_queue': return_queue})
             logging.debug(f"\tcrazy_script_scanner : script {script_index} : successfully executed {script_index}\n")
 
         except Exception as script_failure_message:
