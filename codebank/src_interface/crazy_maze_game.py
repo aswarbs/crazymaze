@@ -65,8 +65,8 @@ class game_frame(Frame):
         height = self.grid_dimensions[0] * self.cell_height
 
         # Create a canvas to store the maze on.
-        self.canvas = Canvas(self, width=width, height=height, bg="red")
-        self.canvas.pack(padx=10, pady=10)  # Pack the canvas inside the frame
+        self.canvas = Canvas(self, width=width - 10, height=height - 10, bg="red")
+        self.canvas.pack()  # Pack the canvas inside the frame
 
         self.draw_grid()
 

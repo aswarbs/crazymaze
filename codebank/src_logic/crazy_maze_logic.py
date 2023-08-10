@@ -8,7 +8,7 @@ class maze_logic():
         self.controller = controller
 
 
-    def initialize_game(self, row:int, column:int) -> None:
+    def initialize_game(self, row:int, column:int, game_mode_dict:dict) -> None:
         self.maze = generate_maze_prim(row, column)
 
         player1_spawn = self.maze.get_player_spawn(0)

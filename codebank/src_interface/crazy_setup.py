@@ -1,5 +1,6 @@
 # TODO: add tkinter comment
 from tkinter import *
+import json
 
 # Generic crazy import
 import codebank.src_interface.crazy_colour_interface as cci
@@ -121,9 +122,49 @@ class setup_frame(Frame):
 
         colour_scheme_frame.pack(side=LEFT, expand=TRUE)
 
+        self.create_game_modes(game_options_frame)
+
+
+
+
 
         return game_options_frame
     
+
+
+    def create_game_modes(self, frame) -> None:
+        self.options = ["CRAZY CONTROLS", "CRAZY COLLISION", "CRAZY POWERUPS"]
+
+        self.option_vars = [IntVar() for _ in self.options]
+
+        for i, option in enumerate(self.options):
+            Checkbutton(frame, text=option, variable=self.option_vars[i]).pack(anchor=W)
+
+        submit_button = Button(frame, text="Submit", command=self.submit_game_modes)
+        submit_button.pack()
+
+        self.result_label = Label(frame, text="")
+        self.result_label.pack()
+        pass
+
+    def submit_game_modes(self):
+        selected_options = []
+        for i, option_var in enumerate(self.option_vars):
+            if option_var.get() == 1:
+                selected_options.append(self.options[i])
+        
+    def reformat_game_modes(self, game_mode_names, game_mode_options) -> str:
+
+        game_mode_request = {}
+
+        for name in range(0, len(game_mode_names)):
+            key = game_mode_names[name]
+            game_mode_request[key] = game_mode_options[name]
+
+        # Convert the dictionary to JSON format
+        json_data = json.dumps(game_mode_request)
+
+
 
 
     
@@ -157,10 +198,11 @@ class setup_frame(Frame):
 
         print(f"rows: {self.rows}, cols: {self.columns}")
 
-        self.maze_logic.initialize_game(self.rows, self.columns)
+        game_modes_dictionary = self.reformat_game_modes(self.options, self.option_vars)
+
+        self.maze_logic.initialize_game(self.rows, self.columns, game_modes_dictionary)
         self.parent_window.change_frame("crazy_maze_game")
 
-        pass
 
 
     def on_row_slider_change(self,value:str) -> None:
