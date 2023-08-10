@@ -8,7 +8,7 @@ def request_to_binary_maze(maze_generation_callback: dict[str, any]) -> binary_m
     """
 
     for word in ["maze_data", "player_one_start", "player_two_start", "goal"]:
-        if word not in maze_generation_callback.keys:
+        if word not in maze_generation_callback.keys():
             raise Exception(f"string_to_binary_maze \t:\t{word} not found in callback request")
 
     maze_data: list[list[bool]]
@@ -21,7 +21,7 @@ def request_to_binary_maze(maze_generation_callback: dict[str, any]) -> binary_m
     player_two_start = maze_generation_callback["player_two_start"]
 
     goal_position = tuple[int]
-    goal_position = maze_generation_callback["goal_position"]
+    goal_position = maze_generation_callback["goal"]
 
     bin_maze_instance = binary_maze(width = len(maze_data[0]), height = len(maze_data))
 

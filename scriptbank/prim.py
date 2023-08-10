@@ -263,10 +263,10 @@ for row in range(0, height):
     for column in range(0, width):
         current = maze[row][column]
         if(current == 'c'):
-            maze[row][column] = False
+            maze[row][column] = True
             potential_spawns.append((row, column))
         else:
-            maze[row][column] = True
+            maze[row][column] = False
 p1, goal, p2 = find_furthest_points(potential_spawns)
 
 return_request: dict[str, any] = {}

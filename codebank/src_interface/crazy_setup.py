@@ -1,6 +1,7 @@
 # TODO: add tkinter comment
 from tkinter import *
 import json
+import codebank.src_scriptrunner.crazy_script_scanner as scanner
 
 # Generic crazy import
 import codebank.src_interface.crazy_colour_interface as cci
@@ -117,12 +118,14 @@ class setup_frame(Frame):
 
         # Create a dropdown box to allow the user to choose a colour scheme.
         colour_scheme_dropdown: OptionMenu
-        colour_scheme_dropdown = OptionMenu(colour_scheme_frame, self.selected_colour_scheme, self.colour_schemes)  
+        colour_scheme_dropdown = OptionMenu(colour_scheme_frame, self.selected_colour_scheme, *self.colour_schemes)  
         colour_scheme_dropdown.pack(side=LEFT) 
 
         colour_scheme_frame.pack(side=LEFT, expand=TRUE)
 
         self.create_game_modes(game_options_frame)
+
+        self.create_maze_generation_options(game_options_frame)
 
 
 
@@ -130,6 +133,27 @@ class setup_frame(Frame):
 
         return game_options_frame
     
+    def create_maze_generation_options(self, game_options_frame):
+        maze_generation_list = scanner.find_scripts()
+
+        maze_generation_frame = Frame(game_options_frame)
+
+        maze_generation_label: Label
+        maze_generation_label = Label(maze_generation_frame, text="Maze Generation: ")
+        maze_generation_label.pack(side=LEFT)
+
+        # Create a variable to store the selected colour scheme title.
+        self.selected_maze_generation: StringVar
+        self.selected_maze_generation = StringVar(maze_generation_frame)
+        self.selected_maze_generation.set(maze_generation_list[0])
+
+        # Create a dropdown box to allow the user to choose a colour scheme.
+        maze_generation_dropdown: OptionMenu
+        maze_generation_dropdown = OptionMenu(maze_generation_frame, self.selected_maze_generation, *maze_generation_list)  
+        maze_generation_dropdown.pack(side=LEFT) 
+
+        maze_generation_frame.pack(side=LEFT, expand=TRUE)
+
 
 
     def create_game_modes(self, frame) -> None:
@@ -138,10 +162,7 @@ class setup_frame(Frame):
         self.option_vars = [IntVar() for _ in self.options]
 
         for i, option in enumerate(self.options):
-            Checkbutton(frame, text=option, variable=self.option_vars[i]).pack(anchor=W)
-
-        submit_button = Button(frame, text="Submit", command=self.submit_game_modes)
-        submit_button.pack()
+            Checkbutton(frame, text=option, variable=self.option_vars[i], command=self.submit_game_modes).pack(anchor=W)
 
         self.result_label = Label(frame, text="")
         self.result_label.pack()
@@ -159,10 +180,12 @@ class setup_frame(Frame):
 
         for name in range(0, len(game_mode_names)):
             key = game_mode_names[name]
-            game_mode_request[key] = game_mode_options[name]
+            game_mode_request[key] = game_mode_options[name].get()
 
         # Convert the dictionary to JSON format
         json_data = json.dumps(game_mode_request)
+
+        return json_data
 
 
 
@@ -199,8 +222,9 @@ class setup_frame(Frame):
         print(f"rows: {self.rows}, cols: {self.columns}")
 
         game_modes_dictionary = self.reformat_game_modes(self.options, self.option_vars)
+        
 
-        self.maze_logic.initialize_game(self.rows, self.columns, game_modes_dictionary)
+        self.maze_logic.initialize_game(self.rows, self.columns, game_modes_dictionary, self.selected_maze_generation.get())
         self.parent_window.change_frame("crazy_maze_game")
 
 

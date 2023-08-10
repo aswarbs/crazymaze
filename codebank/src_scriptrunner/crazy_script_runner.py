@@ -12,7 +12,7 @@ def run_script(script_path: str, rowcols: tuple[int, int], seed: int = None) -> 
     # Parameter overloading, calls base function
     return run_script(script_path, rowcols[0], rowcols[1], seed)
 
-def run_script(script_path: str, rows: int, columns: int, seed: int = 5) -> Queue:
+def run_script(script_path: str, rows: int, columns: int, seed: int = 43) -> Queue:
     """
     Runs the passed script on a thread, returns a queue that the resulting data will be
     added to. Should return a request containing the generated maze, this should then be passed
