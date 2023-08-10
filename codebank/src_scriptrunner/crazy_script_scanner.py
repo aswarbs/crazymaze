@@ -2,6 +2,10 @@ from codebank.logger import *
 import os
 
 def find_scripts(directory: str = "scriptbank/", show_errors: bool = False):
+    """
+    Finds the list of scripts in the script bank and returns a list of the .py scripts that can be
+    run. This is tested using the exec() command. This should really be run before the GUI is created.
+    """
 
     # Get list of scripts using os module
     python_files: list(str)
