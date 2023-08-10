@@ -66,7 +66,7 @@ class game_frame(Frame):
 
         # Create a canvas to store the maze on.
         self.canvas = Canvas(self, width=width, height=height, bg="red")
-        self.canvas.pack()  # Pack the canvas inside the frame
+        self.canvas.pack(padx=10, pady=10)  # Pack the canvas inside the frame
 
         self.draw_grid()
 
@@ -140,9 +140,9 @@ class game_frame(Frame):
 
         # Create and return the corresponding sprite.
         if(type == "player"):
-            sprite = self.canvas.create_oval(x1, y1, x2, y2, outline="black", fill=colour)
+            sprite = self.canvas.create_oval(x1 + 5, y1 + 5, x2 - 5, y2 - 5, outline="black", fill=colour)
         else:
-            sprite = self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=colour)
+            sprite = self.canvas.create_rectangle(x1 + 5, y1 + 5, x2 - 5, y2 - 5, outline="black", fill=colour)
         return sprite
 
 
