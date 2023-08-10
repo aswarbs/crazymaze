@@ -1,0 +1,1 @@
+This is where all of the logs will be stored, it's normally ignored in the .gitignore

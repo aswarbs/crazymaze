@@ -4,7 +4,7 @@ import random
 import time
 import itertools
 import math
-from crazy_binary_maze import *
+from codebank.src_logic.crazy_binary_maze import *
 
 SYMBOL_WALL = "w"
 SYMBOL_CELL = "c"
@@ -302,7 +302,7 @@ def generate_maze_prim(rows, columns) -> binary_maze:
     return binary_maze_instance
 
 if __name__ == "__main__":
-    bin_maze_test = generate_maze_prim(20, 20)
+    bin_maze_test = generate_maze_prim(100, 100)
     print(bin_maze_test)
                    
     
