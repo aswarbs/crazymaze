@@ -6,7 +6,11 @@ from codebank.logger import *
 if __name__ == "__main__":
     x = find_scripts("scriptbank/", True)
 
-    run_script("scriptbank/test.py", 5, 5)
+    q = run_script("scriptbank/prim.py", 5, 5)
+    while(q.qsize() == 0):
+        print(q.qsize())
+        time.sleep(0.05)
+    print(q.get())
 
     controller = controller()
     exit()

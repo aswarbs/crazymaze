@@ -2,6 +2,7 @@ from codebank.logger import *
 from queue import Queue
 import datetime
 import threading
+import time
 
 def run_script(script_path: str, rowcols: tuple[int, int], seed: int = None) -> Queue:
     """
@@ -14,7 +15,8 @@ def run_script(script_path: str, rowcols: tuple[int, int], seed: int = None) -> 
 def run_script(script_path: str, rows: int, columns: int, seed: int = 5) -> Queue:
     """
     Runs the passed script on a thread, returns a queue that the resulting data will be
-    added to.
+    added to. Should return a request containing the generated maze, this should then be passed
+    into a conversion function to be used as a binary maze object.
     """
 
     # Gets a reference to the return queue (to run script asynchrnously)
@@ -35,3 +37,4 @@ def run_script(script_path: str, rows: int, columns: int, seed: int = 5) -> Queu
 
     # Returns the return queue, when the script is complete, it will be added here
     return return_queue
+
