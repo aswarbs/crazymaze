@@ -104,18 +104,33 @@ class setup_frame(Frame, theme_provider):
         self.master = master
         self.crazy_dock = crazy_dock
 
-        # Create dock tabs with corresponding frame show functions
-        self.crazy_dock.create_dock_tab("Cum", lambda: self.show_frame("dimensions"))
-        self.crazy_dock.create_dock_tab("Lau", lambda: self.show_frame("lau"))
+        # Create Frames
+        dimension_frame = Frame(self)
+        dlabel = Label(dimension_frame, text = "dimensions").pack()
 
-    def show_frame(self, frame: str):
+        colors_frame = Frame(self)
+        clabel = Label(colors_frame, text = "Colors").pack()
+
+        # Create dock tabs with corresponding frame show functions
+        self.crazy_dock.create_dock_tab("Dimensions", lambda: self.show_frame(dimension_frame))
+        self.crazy_dock.create_dock_tab("Colors", lambda: self.show_frame(colors_frame))
+
+        self.current_frame = dimension_frame
+        self.current_frame.pack()
+        
+
+    def show_frame(self, frame: Frame):
         """
         Display the specified frame associated with a dock tab.
 
         Args:
             frame (str): The name of the frame to display.
         """
-        print(frame)
+        
+        self.current_frame.forget()
+        self.current_frame = frame
+        self.current_frame.pack()
+        self.update()
 
 def start():
     """Start the application."""
