@@ -45,21 +45,22 @@ class script_display(Frame):
 
         self.pack(fill=BOTH, expand=TRUE)
 
-    def load_chosen_script_subframe(self, parent_frame, script:str) -> Frame:
+    def load_chosen_script_subframe(self, parent_frame, **kwargs) -> Frame:
         """
         load the subframe created from the chosen script
         """
-
-        pass
-
-    def load_chosen_script_subframe(self, parent_frame) -> Frame:
-        """ load the default subframe """
-
         frame = Frame(parent_frame)
 
-        Label(frame, text="Select a Script").pack()
+        if("script" not in kwargs):
+            Label(frame, text="Select a Script").pack()
+            return frame
+        
+        script_name = kwargs["script"]
+        print(script_name)
 
         return frame
+    
+
 
     
         
@@ -111,12 +112,14 @@ class script_display(Frame):
         
         
         for name in scripts:
-            current_button = Button(script_frame, text=name, command=lambda:self.load_chosen_script_subframe(name))
+            #current_function = self.create_script_function(name, parent_frame)
+            current_button = Button(script_frame, text=name, command=lambda n=name: self.load_chosen_script_subframe(parent_frame, script=n))
             current_button.pack()
 
-        return subframe
+            
 
-        
+        return subframe
+    
 
     def on_canvas_configure(self, event):
         self.script_canvas.configure(scrollregion=self.script_canvas.bbox("all"))
