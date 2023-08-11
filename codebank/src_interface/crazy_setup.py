@@ -216,8 +216,10 @@ class setup_frame(Frame):
 
     def start_game(self) -> None:
         """
-        Change the frame to the Game screen.
+        Change the frame to the script setup screen.
         """
+
+
 
         print(f"rows: {self.rows}, cols: {self.columns}")
 
@@ -225,7 +227,7 @@ class setup_frame(Frame):
         
 
         self.maze_logic.initialize_game(self.rows, self.columns, game_modes_dictionary, self.selected_maze_generation.get())
-        self.parent_window.change_frame("crazy_maze_game")
+        self.parent_window.change_frame("crazy_script_display")
 
 
 

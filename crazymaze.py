@@ -5,8 +5,8 @@ from codebank.src_interface.src_dock.crazy_dock_frame import *
 from codebank.logger import *
 
 if __name__ == "__main__":
-    start()
-    exit()
+    #start()
+    #exit()
     
     x = find_scripts("scriptbank/", True)
 
