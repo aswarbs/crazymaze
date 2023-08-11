@@ -2,6 +2,7 @@ from tkinter import *
 
 from codebank.src_interface.crazy_maze_game import game_frame
 from codebank.src_interface.crazy_setup import setup_frame
+from codebank.src_interface.crazy_script_display import script_display
 
 class window():
     def __init__(self, controller) -> None:
@@ -33,7 +34,8 @@ class window():
         self.class_names:dict[str, type]
         self.class_names = {
              "crazy_maze_game": game_frame,
-             "crazy_setup": setup_frame
+             "crazy_setup": setup_frame,
+             "crazy_script_display": script_display
         }
 
     def change_frame(self, new_frame_name:str):
