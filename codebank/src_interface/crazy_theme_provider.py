@@ -16,7 +16,6 @@ INBUILT_MENU_THEME_DEFAULT = """{
     "body_font": "Arial"
 }"""
 
-
 class theme_provider():
 
     def __init__(self) -> None:
