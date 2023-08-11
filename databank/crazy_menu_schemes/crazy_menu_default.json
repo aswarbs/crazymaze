@@ -1,5 +1,12 @@
 {
-    "scaler_cell_size": 15,
-    "scaler_cell_color": "#2F3E46",
-    "scaler_foreground": "#52796F"
+    "dock_background": "#1A659E",
+    "dock_tab_background_unselected": "#004E89",
+    "dock_tab_text_unselected": "#002E51",
+    "dock_tab_background_selected": "#EFEFD0",
+    "dock_tab_text_selected": "#492C00",
+    "text_colour": "#492C00",
+    "frame_colour": "#EFEFD0",
+    "accent": "#F7C59F",
+    "title_font": "Times New Roman",
+    "body_font": "Arial"
 }
