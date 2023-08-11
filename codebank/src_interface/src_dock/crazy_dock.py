@@ -36,7 +36,7 @@ class crazydock(Frame, theme_provider):
         
         self.dock_commands[button_pressed]()
 
-    def create_dock_tab(self, button_text: str, command: Callable) -> None:
+    def create_dock_tab(self, button_text: str, command: Callable) -> dock_tab:
         """
         Create and add a new dock tab.
 
@@ -48,17 +48,4 @@ class crazydock(Frame, theme_provider):
         self.dock_buttons.append(temp_button)
         self.dock_commands[temp_button] = command
         temp_button.pack(padx=10, pady=10)
-
-
-def start():
-    """Start the application."""
-    master = Tk()
-    f = crazydock(master)
-    f.pack()
-
-    s = setup_frame(master, f)
-    s.pack()
-    master.mainloop()
-
-if __name__ == "__main__":
-    start()
+        return temp_button

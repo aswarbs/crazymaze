@@ -33,15 +33,17 @@ class setup_frame(Frame, theme_provider):
         colors_frame = setup_colors_frame(self)
 
         # Create dock tabs with corresponding frame show functions
-        self.crazy_dock.create_dock_tab("Dimensions", lambda: self.show_frame(dimensions_frame))
+        b = self.crazy_dock.create_dock_tab("Dimensions", lambda: self.show_frame(dimensions_frame))
         self.crazy_dock.create_dock_tab("Colors", lambda: self.show_frame(colors_frame))
         self.crazy_dock.create_dock_tab("Algorithm", lambda: self.show_frame(algorithm_frame))
         self.crazy_dock.create_dock_tab("Players", lambda: self.show_frame(players_frame))
         self.crazy_dock.create_dock_tab("Mode", lambda: self.show_frame(mode_frame))
 
-        self.current_frame = dimensions_frame
-        self.current_frame.pack()
-        
+        self.set_starting_frame(dimensions_frame, b)
+    
+    def set_starting_frame(self, frame: Frame, button: dock_tab) -> None:
+        self.current_frame = frame
+        self.crazy_dock.button_pressed(button)
 
     def show_frame(self, frame: Frame):
         """
