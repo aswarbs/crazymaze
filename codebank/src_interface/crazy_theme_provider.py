@@ -1,4 +1,21 @@
 import json
+from codebank.logger import *
+
+# Hard Coded Theme (in-case no theme can be found)
+global INBUILT_MENU_THEME_DEFAULT
+INBUILT_MENU_THEME_DEFAULT = """{
+    "dock_background": "#1A659E",
+    "dock_tab_background_unselected": "#004E89",
+    "dock_tab_text_unselected": "#002E51",
+    "dock_tab_background_selected": "#EFEFD0",
+    "dock_tab_text_selected": "#492C00",
+    "text_colour": "#492C00",
+    "frame_colour": "#EFEFD0",
+    "accent": "#F7C59F",
+    "title_font": "Times New Roman",
+    "body_font": "Arial"
+}"""
+
 
 class theme_provider():
 
@@ -8,11 +25,16 @@ class theme_provider():
     def load_theme_from_file(self, path: str = "databank/crazy_menu_schemes/crazy_menu_default.json") -> None:
         
         # Opening JSON file & Importing
-        file = open(path)
-        scheme_data = json.load(file)
-        print(scheme_data)
-        self.import_scheme(scheme_data)
-        file.close()
+        try:
+            file = open(path)
+            scheme_data = json.load(file)
+            print(scheme_data)
+            self.import_scheme(scheme_data)
+            file.close()
+        except Exception as colour_scheme_failure_message:
+            # If that fails, use defualt
+            logging.debug(f"theme_provider: failed to import menu scheme {path}, exception: {colour_scheme_failure_message}")
+            self.import_scheme(INBUILT_MENU_THEME_DEFAULT)
 
     def import_scheme(self, scheme_data: dict[str, str]) -> None:
 
