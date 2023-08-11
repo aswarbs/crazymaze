@@ -3,6 +3,11 @@ from codebank.src_interface.src_dock.crazy_dock import *
 
 # Setup Windows
 from codebank.src_interface.src_setup.crazy_setup_dimensions import *
+from codebank.src_interface.src_setup.crazy_setup_algorithm import *
+from codebank.src_interface.src_setup.crazy_setup_mode import *
+from codebank.src_interface.src_setup.crazy_setup_players import *
+from codebank.src_interface.src_setup.crazy_setup_colors import *
+
 
 class setup_frame(Frame, theme_provider):
     """
@@ -21,16 +26,20 @@ class setup_frame(Frame, theme_provider):
         self.crazy_dock = crazy_dock
 
         # Create Frames
-        dimension_frame = Frame(self)
-        dlabel = Label(dimension_frame, text = "dimensions").pack()
-
-        colors_frame = setup_dimensions_frame(self)
+        dimensions_frame = setup_dimensions_frame(self)
+        algorithm_frame = setup_algorithm_frame(self)
+        mode_frame = setup_mode_frame(self)
+        players_frame = setup_players_frame(self)
+        colors_frame = setup_colors_frame(self)
 
         # Create dock tabs with corresponding frame show functions
-        self.crazy_dock.create_dock_tab("Dimensions", lambda: self.show_frame(dimension_frame))
+        self.crazy_dock.create_dock_tab("Dimensions", lambda: self.show_frame(dimensions_frame))
         self.crazy_dock.create_dock_tab("Colors", lambda: self.show_frame(colors_frame))
+        self.crazy_dock.create_dock_tab("Algorithm", lambda: self.show_frame(algorithm_frame))
+        self.crazy_dock.create_dock_tab("Players", lambda: self.show_frame(players_frame))
+        self.crazy_dock.create_dock_tab("Mode", lambda: self.show_frame(mode_frame))
 
-        self.current_frame = dimension_frame
+        self.current_frame = dimensions_frame
         self.current_frame.pack()
         
 
