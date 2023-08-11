@@ -2,11 +2,11 @@ from tkinter import *
 from codebank.src_interface.src_dock.crazy_dock import *
 
 # Setup Windows
-from codebank.src_interface.src_setup.crazy_setup_dimensions import *
-from codebank.src_interface.src_setup.crazy_setup_algorithm import *
-from codebank.src_interface.src_setup.crazy_setup_mode import *
-from codebank.src_interface.src_setup.crazy_setup_players import *
-from codebank.src_interface.src_setup.crazy_setup_colors import *
+from codebank.src_interface.src_setup_frames.crazy_setup_dimensions import *
+from codebank.src_interface.src_setup_frames.crazy_setup_algorithm import *
+from codebank.src_interface.src_setup_frames.crazy_setup_mode import *
+from codebank.src_interface.src_setup_frames.crazy_setup_players import *
+from codebank.src_interface.src_setup_frames.crazy_setup_colors import *
 
 
 class setup_frame(Frame, theme_provider):
