@@ -1,6 +1,9 @@
 from tkinter import *
 from codebank.src_interface.src_dock.crazy_dock import *
 
+# Setup Windows
+from codebank.src_interface.src_setup.crazy_setup_dimensions import *
+
 class setup_frame(Frame, theme_provider):
     """
     A frame to set up and manage frames associated with dock tabs.
@@ -21,8 +24,7 @@ class setup_frame(Frame, theme_provider):
         dimension_frame = Frame(self)
         dlabel = Label(dimension_frame, text = "dimensions").pack()
 
-        colors_frame = Frame(self)
-        clabel = Label(colors_frame, text = "Colors").pack()
+        colors_frame = setup_dimensions_frame(self)
 
         # Create dock tabs with corresponding frame show functions
         self.crazy_dock.create_dock_tab("Dimensions", lambda: self.show_frame(dimension_frame))
