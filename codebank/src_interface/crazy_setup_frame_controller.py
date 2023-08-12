@@ -33,11 +33,11 @@ class setup_frame(Frame, theme_provider):
         colors_frame = setup_colors_frame(self)
 
         # Create dock tabs with corresponding frame show functions
-        b = self.crazy_dock.create_dock_tab("Dimensions", lambda: self.show_frame(dimensions_frame))
-        self.crazy_dock.create_dock_tab("Colors", lambda: self.show_frame(colors_frame))
-        self.crazy_dock.create_dock_tab("Algorithm", lambda: self.show_frame(algorithm_frame))
-        self.crazy_dock.create_dock_tab("Players", lambda: self.show_frame(players_frame))
-        self.crazy_dock.create_dock_tab("Mode", lambda: self.show_frame(mode_frame))
+        b = self.crazy_dock.create_dock_tab("dimensions", lambda: self.show_frame(dimensions_frame))
+        self.crazy_dock.create_dock_tab("colors", lambda: self.show_frame(colors_frame))
+        self.crazy_dock.create_dock_tab("algorithm", lambda: self.show_frame(algorithm_frame))
+        self.crazy_dock.create_dock_tab("players", lambda: self.show_frame(players_frame))
+        self.crazy_dock.create_dock_tab("mode", lambda: self.show_frame(mode_frame))
 
         self.set_starting_frame(dimensions_frame, b)
     
@@ -62,7 +62,7 @@ def start():
     """Start the application."""
     master = Tk()
     f = crazydock(master)
-    f.pack()
+    f.pack(anchor=N, fill = X, expand = True)
 
     s = setup_frame(master, f)
     s.pack()

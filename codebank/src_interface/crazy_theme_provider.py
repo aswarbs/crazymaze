@@ -13,8 +13,10 @@ INBUILT_MENU_THEME_DEFAULT = """{
     "frame_colour": "#EFEFD0",
     "accent": "#F7C59F",
     "title_font": "Times New Roman",
-    "body_font": "Arial"
+    "body_font": "Arial",
+    "play_button": "#53AF62"
 }"""
+
 
 class theme_provider():
 
@@ -48,6 +50,7 @@ class theme_provider():
         self.accent = scheme_data["accent"]
         self.title_font = scheme_data["title_font"]
         self.body_font = scheme_data["body_font"]
+        self.play_button = scheme_data["play_button"]
         self.scheme_data = scheme_data
 
 if __name__ == "__main__":

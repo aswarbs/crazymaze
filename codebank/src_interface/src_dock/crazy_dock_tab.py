@@ -24,6 +24,7 @@ class dock_tab(Button, theme_provider):
         self.configure(bg=self.dock_tab_background_unselected)
         self.configure(fg=self.dock_tab_text_unselected)
         self.configure(command=self.switch_tab, text=text)
+        self.configure(highlightthickness=0, relief='ridge', bd = 0)
         self.configure(**kwargs)
 
     def switch_tab(self):

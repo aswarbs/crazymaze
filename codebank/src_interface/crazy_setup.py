@@ -127,10 +127,6 @@ class setup_frame(Frame):
 
         self.create_maze_generation_options(game_options_frame)
 
-
-
-
-
         return game_options_frame
     
     def create_maze_generation_options(self, game_options_frame):

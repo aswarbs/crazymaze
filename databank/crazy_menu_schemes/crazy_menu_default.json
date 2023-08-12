@@ -8,5 +8,6 @@
     "frame_colour": "#EFEFD0",
     "accent": "#F7C59F",
     "title_font": "Times New Roman",
-    "body_font": "Arial"
+    "body_font": "Arial",
+    "play_button": "#53AF62"
 }
