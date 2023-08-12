@@ -8,6 +8,9 @@ class maze_logic():
     def __init__(self, controller) -> None:
         self.controller = controller
 
+    def set_win_condition():
+        pass
+
 
     def initialize_game(self, row:int, column:int, game_mode_dict:dict, chosen_maze_generation_script:str) -> None:
         runner_queue = runner.run_script(chosen_maze_generation_script, row, column)

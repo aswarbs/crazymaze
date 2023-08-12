@@ -1,5 +1,5 @@
 from tkinter import *
-import codebank.src_game_script_runner.crazy_game_script_scanner as scanner
+import codebank.src_game_script_runner.crazy_game_script_loader as scanner
 
 class script_display(Frame):
 
@@ -15,9 +15,9 @@ class script_display(Frame):
 
         super().__init__(self.master)
 
+        self.scripts = scanner.scan_scripts()
 
-        self.scripts = scanner.load_scripts()
-        print(self.scripts)
+        self.script_frames = scanner.load_scripts(self.scripts)
 
 
         self.create_scripts_window()
@@ -45,21 +45,22 @@ class script_display(Frame):
 
         self.pack(fill=BOTH, expand=TRUE)
 
-    def load_chosen_script_subframe(self, parent_frame, script:str) -> Frame:
+    def load_chosen_script_subframe(self, parent_frame, **kwargs) -> Frame:
         """
         load the subframe created from the chosen script
         """
-
-        pass
-
-    def load_chosen_script_subframe(self, parent_frame) -> Frame:
-        """ load the default subframe """
-
         frame = Frame(parent_frame)
 
-        Label(frame, text="Select a Script").pack()
+        if("script" not in kwargs):
+            Label(frame, text="Select a Script").pack()
+            return frame
+        
+        script_name = kwargs["script"]
+        print(script_name)
 
         return frame
+    
+
 
     
         
@@ -88,6 +89,8 @@ class script_display(Frame):
     def start_game(self) -> None:
         self.parent_window.change_frame("crazy_maze_game")
 
+
+
     def create_scripts_frame(self, parent_frame, scripts:list[str]) -> Frame:
         """
         create the subframe that stores the retrieved list of scripts as buttons
@@ -111,12 +114,15 @@ class script_display(Frame):
         
         
         for name in scripts:
-            current_button = Button(script_frame, text=name, command=lambda:self.load_chosen_script_subframe(name))
+            #current_function = self.create_script_function(name, parent_frame)
+            current_button = Button(script_frame, text=name, command=lambda n=name: self.load_chosen_script_subframe(parent_frame, script=n))
             current_button.pack()
+
+            
 
         return subframe
 
-        
+    
 
     def on_canvas_configure(self, event):
         self.script_canvas.configure(scrollregion=self.script_canvas.bbox("all"))
