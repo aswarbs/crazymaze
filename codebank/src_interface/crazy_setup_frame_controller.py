@@ -9,7 +9,7 @@ from codebank.src_interface.src_setup_frames.crazy_setup_players import *
 from codebank.src_interface.src_setup_frames.crazy_setup_colors import *
 
 
-class setup_frame(Frame, theme_provider):
+class setup_frame(theme_provider):
     """
     A frame to set up and manage frames associated with dock tabs.
 
@@ -19,18 +19,17 @@ class setup_frame(Frame, theme_provider):
     """
 
     def __init__(self, master: Union[Tk, Frame], crazy_dock: crazydock) -> None:
-        Frame.__init__(self, master, bg = "red")
         theme_provider.__init__(self)
 
         self.master = master
         self.crazy_dock = crazy_dock
 
         # Create Frames
-        dimensions_frame = setup_dimensions_frame(self)
-        algorithm_frame = setup_algorithm_frame(self)
-        mode_frame = setup_mode_frame(self)
-        players_frame = setup_players_frame(self)
-        colors_frame = setup_colors_frame(self)
+        dimensions_frame = setup_dimensions_frame(master)
+        algorithm_frame = setup_algorithm_frame(master)
+        mode_frame = setup_mode_frame(master)
+        players_frame = setup_players_frame(master)
+        colors_frame = setup_colors_frame(master)
 
         # Create dock tabs with corresponding frame show functions
         b = self.crazy_dock.create_dock_tab("dimensions", lambda: self.show_frame(dimensions_frame))
@@ -55,17 +54,16 @@ class setup_frame(Frame, theme_provider):
         
         self.current_frame.forget()
         self.current_frame = frame
-        self.current_frame.pack(anchor = N, fill=BOTH, expand=True)
-        self.update()
+        self.current_frame.pack(fill = BOTH, side=TOP, anchor=N, expand=TRUE)
 
 def start():
     """Start the application."""
     master = Tk()
+    master.configure(bg = "red")
     f = crazydock(master)
-    f.pack(anchor=N, fill = X, expand = True)
+    f.pack(anchor=N, fill = X)
 
     s = setup_frame(master, f)
-    s.pack(side = BOTTOM, anchor = N, fill = BOTH, expand = True)
     master.mainloop()
 
 if __name__ == "__main__":

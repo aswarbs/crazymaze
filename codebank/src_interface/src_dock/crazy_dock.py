@@ -44,7 +44,7 @@ class crazydock(Frame, theme_provider):
     """
 
     def __init__(self, master: Tk) -> None:
-        Frame.__init__(self, master)
+        Frame.__init__(self, master, bg = "green")
         theme_provider.__init__(self)
 
         self.configure(bg=self.dock_background)

@@ -15,4 +15,4 @@ class setup_dimensions_frame(Frame, theme_provider):
         theme_provider.__init__(self)
         Frame.__init__(self, master, bg = self.frame_colour)
 
-        self.label = Label(self, text = "DIMENSIONS", font = ("Arial", 60, "bold")).pack(side=TOP)
+        self.label = Label(self, text = "DIMENSIONS Setup", font = ("Arial", 60, "bold"), bg= self.frame_colour).pack(fill="none", expand=True)

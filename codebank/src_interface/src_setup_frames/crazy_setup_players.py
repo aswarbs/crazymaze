@@ -12,7 +12,7 @@ class setup_players_frame(Frame, theme_provider):
     """
 
     def __init__(self, master: Union[Tk, Frame]) -> None:
-        Frame.__init__(self, master)
         theme_provider.__init__(self)
+        Frame.__init__(self, master, bg = self.frame_colour)
 
-        self.label = Label(self, text = "PLAYRRS", font = ("Arial", 60, "bold")).pack()
+        self.label = Label(self, text = "PLAYERS Setup", font = ("Arial", 60, "bold"), bg= self.frame_colour).pack(fill="none", expand=True)

@@ -5,8 +5,8 @@ from codebank.src_interface.crazy_setup_frame_controller import *
 from codebank.logger import *
 
 if __name__ == "__main__":
-    #start()
-    #exit()
+    start()
+    exit()
 
     x = find_scripts("scriptbank/crazy_maze_scripts", True)
 
