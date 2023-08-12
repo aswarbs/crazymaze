@@ -1,5 +1,5 @@
 from tkinter import *
-import codebank.src_game_script_runner.crazy_game_script_scanner as scanner
+import codebank.src_game_script_runner.crazy_game_script_loader as scanner
 
 class script_display(Frame):
 
@@ -15,9 +15,9 @@ class script_display(Frame):
 
         super().__init__(self.master)
 
+        self.scripts = scanner.scan_scripts()
 
-        self.scripts = scanner.load_scripts()
-        print(self.scripts)
+        self.script_frames = scanner.load_scripts(self.scripts)
 
 
         self.create_scripts_window()
@@ -89,6 +89,8 @@ class script_display(Frame):
     def start_game(self) -> None:
         self.parent_window.change_frame("crazy_maze_game")
 
+
+
     def create_scripts_frame(self, parent_frame, scripts:list[str]) -> Frame:
         """
         create the subframe that stores the retrieved list of scripts as buttons
@@ -119,6 +121,7 @@ class script_display(Frame):
             
 
         return subframe
+
     
 
     def on_canvas_configure(self, event):

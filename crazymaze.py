@@ -8,13 +8,11 @@ if __name__ == "__main__":
     #start()
     #exit()
 
-    x = find_scripts("scriptbank/", True)
+    x = find_scripts("scriptbank/crazy_maze_scripts", True)
 
-    q = run_script("scriptbank/prim.py", 5, 5)
+    q = run_script("scriptbank/crazy_maze_scripts/prim.py", 5, 5)
     while(q.qsize() == 0):
-        print(q.qsize())
         time.sleep(0.05)
-    print(q.get())
 
     controller = controller()
     exit()

@@ -221,12 +221,11 @@ class setup_frame(Frame):
 
 
 
-        print(f"rows: {self.rows}, cols: {self.columns}")
-
         game_modes_dictionary = self.reformat_game_modes(self.options, self.option_vars)
-        
+
 
         self.maze_logic.initialize_game(self.rows, self.columns, game_modes_dictionary, self.selected_maze_generation.get())
+
         self.parent_window.change_frame("crazy_script_display")
 
 

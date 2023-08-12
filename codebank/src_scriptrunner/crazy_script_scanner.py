@@ -2,7 +2,7 @@ from codebank.logger import *
 import os
 from queue import Queue
 
-def find_scripts(directory: str = "scriptbank/", show_errors: bool = False) -> list[str]:
+def find_scripts(directory: str = "scriptbank/crazy_maze_scripts", show_errors: bool = False) -> list[str]:
     """
     Finds the list of scripts in the script bank and returns a list of the .py scripts that can be
     run. This is tested using the exec() command. This should really be run before the GUI is created.
