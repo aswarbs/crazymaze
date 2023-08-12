@@ -12,7 +12,7 @@ class setup_dimensions_frame(Frame, theme_provider):
     """
 
     def __init__(self, master: Union[Tk, Frame]) -> None:
-        Frame.__init__(self, master)
         theme_provider.__init__(self)
+        Frame.__init__(self, master, bg = self.frame_colour)
 
-        self.label = Label(self, text = "DIMENSIONS", font = ("Arial", 60, "bold")).pack()
+        self.label = Label(self, text = "DIMENSIONS", font = ("Arial", 60, "bold")).pack(side=TOP)

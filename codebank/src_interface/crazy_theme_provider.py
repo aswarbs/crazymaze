@@ -29,7 +29,6 @@ class theme_provider():
         try:
             file = open(path)
             scheme_data = json.load(file)
-            print(scheme_data)
             self.import_scheme(scheme_data)
             file.close()
         except Exception as colour_scheme_failure_message:

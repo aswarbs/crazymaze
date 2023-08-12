@@ -19,7 +19,7 @@ class setup_frame(Frame, theme_provider):
     """
 
     def __init__(self, master: Union[Tk, Frame], crazy_dock: crazydock) -> None:
-        Frame.__init__(self, master)
+        Frame.__init__(self, master, bg = "red")
         theme_provider.__init__(self)
 
         self.master = master
@@ -55,7 +55,7 @@ class setup_frame(Frame, theme_provider):
         
         self.current_frame.forget()
         self.current_frame = frame
-        self.current_frame.pack()
+        self.current_frame.pack(anchor = N, fill=BOTH, expand=True)
         self.update()
 
 def start():
@@ -65,7 +65,7 @@ def start():
     f.pack(anchor=N, fill = X, expand = True)
 
     s = setup_frame(master, f)
-    s.pack()
+    s.pack(side = BOTTOM, anchor = N, fill = BOTH, expand = True)
     master.mainloop()
 
 if __name__ == "__main__":
