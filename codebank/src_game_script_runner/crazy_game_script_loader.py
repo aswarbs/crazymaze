@@ -20,12 +20,12 @@ def scan_scripts(path: str = "scriptbank/crazy_game_scripts") -> list[str]:
     return py_file_list
 
 
-def load_scripts(file_names:list[str], path:str="scriptbank/crazy_game_scripts") -> list[Frame]:
+def load_scripts(file_names:list[str], path:str="scriptbank/crazy_game_scripts", ) -> dict[str, Frame]:
     """
     retrieve the setup frame for every script
     """
 
-    script_frames = []
+    script_frames = {}
 
     # Loop through the script files
     for script_file in file_names:
@@ -45,4 +45,8 @@ def load_scripts(file_names:list[str], path:str="scriptbank/crazy_game_scripts")
                 # Now you can call methods from the class as needed
                 if hasattr(attribute, "get_setup_frame"):
                     current_frame = attribute.get_setup_frame(attribute)
-                    script_frames.append(current_frame)
+                    script_frames[script_file] = current_frame
+
+    print(script_frames)
+
+    return script_frames
