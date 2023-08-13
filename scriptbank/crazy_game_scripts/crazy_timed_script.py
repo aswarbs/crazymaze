@@ -8,7 +8,13 @@ class timed_script(script_base):
 
         self.frame = frame
 
-        Label(self.frame, text="TIMED SCRIPT").pack()
+
+        # Create a slider to represent the chosen number of rows.
+        time_slider: Scale
+        self.time: int = 8
+        time_slider = Scale(self.frame, from_ = 8, to=100, orient=HORIZONTAL, command=self.on_time_slider_change)
+        time_slider.pack(side=LEFT)
+
 
         return self.frame
     
