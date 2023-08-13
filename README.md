@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/aswarbs/crazymaze">
-    <img src="imagebank/logo_light.png" alt="Logo" width="400" height="200">
+    <img src="imagebank/logo_light.png" alt="Logo" width="500" height="90">
   </a>
 
 <h3 align="center">Crazymaze</h3>
