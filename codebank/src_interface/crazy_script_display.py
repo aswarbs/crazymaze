@@ -12,17 +12,28 @@ class script_display(Frame):
         self.master: Tk
         self.master = master
         self.parent_window = parent_window
-        self.chosen_frame = Frame()
 
         super().__init__(self.master)
 
         self.scripts = scanner.scan_scripts()
 
-        self.script_name_to_frame = scanner.load_scripts(self.scripts)
+        self.script_name_to_frame = {}
+
+        self.chosen_frame = self.load_initial_script_subframe()
+
+        
+
+        for script in self.scripts:
+            initial_frame = self.initialize_chosen_frame()
+            self.script_name_to_frame[script] = scanner.load_script(script, initial_frame)
 
 
         self.create_scripts_window()
 
+
+    def initialize_chosen_frame(self):
+        frame = Frame(background="yellow")
+        return frame
 
     def create_scripts_window(self) -> None:
         """
@@ -46,37 +57,33 @@ class script_display(Frame):
 
         self.pack(fill=BOTH, expand=TRUE)
 
+    def load_initial_script_subframe(self) -> Frame:
+            initial_frame = self.initialize_chosen_frame()
+            Label(initial_frame, text="initial").pack()
+            return initial_frame
 
-
-    def load_chosen_script_subframe(self, parent_frame, **kwargs) -> Frame:
+    def load_chosen_script_subframe(self, **kwargs) -> Frame:
         """
         load the subframe created from the chosen script
         """
-        
 
-        if("script" not in kwargs):
-            frame = Frame()
-            Label(frame, text="Select a Script").pack()
-            return frame 
-        
-        script_name = kwargs["script"]
-        frame = self.script_name_to_frame[script_name]
+        if "script" not in kwargs:
+            return self.load_initial_script_subframe()
 
-        return frame
-    
+        else:
+            script_name = kwargs["script"]
+            frame = self.script_name_to_frame[script_name]
+            return frame
+
     def pack_chosen_script_subframe(self,parent_frame:Frame, **kwargs):
 
         self.chosen_frame.pack_forget()
-        
-        self.chosen_frame = self.load_chosen_script_subframe(parent_frame, **kwargs)
-        self.chosen_frame.pack(in_ = parent_frame)
-    
 
+        self.chosen_frame = self.load_chosen_script_subframe(**kwargs)
 
-    
-        
+        self.chosen_frame.pack(in_ = parent_frame, fill=BOTH, expand=TRUE)
 
-    def create_content_frame(self):
+    def create_content_frame(self) -> Frame:
 
         content_frame = Frame(self)
 
@@ -98,8 +105,6 @@ class script_display(Frame):
 
     def start_game(self) -> None:
         self.parent_window.change_frame("crazy_maze_game")
-
-
 
     def create_scripts_frame(self, parent_frame, scripts:list[str]) -> Frame:
         """
@@ -124,15 +129,12 @@ class script_display(Frame):
         
         
         for name in scripts:
-            #current_function = self.create_script_function(name, parent_frame)
             current_button = Button(script_frame, text=name, command=lambda n=name: self.pack_chosen_script_subframe(parent_frame, script=n))
             current_button.pack()
 
             
 
         return subframe
-
-    
 
     def on_canvas_configure(self, event):
         self.script_canvas.configure(scrollregion=self.script_canvas.bbox("all"))

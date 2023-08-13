@@ -15,8 +15,6 @@ class window():
 
         self.init_frames_dictionary()
 
-        # Make the window fullscreen
-        self.master.attributes("-fullscreen", True)
 
         # Make the window white
         self.master.configure(background="white") 

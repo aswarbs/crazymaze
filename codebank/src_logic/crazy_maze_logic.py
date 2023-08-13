@@ -15,7 +15,6 @@ class maze_logic():
     def initialize_game(self, row:int, column:int, game_mode_dict:dict, chosen_maze_generation_script:str) -> None:
         runner_queue = runner.run_script(chosen_maze_generation_script, row, column)
         while(runner_queue.qsize() == 0):
-            #print(runner_queue.qsize())
             time.sleep(0.05)
         self.maze = converter.request_to_binary_maze(runner_queue.get())
 

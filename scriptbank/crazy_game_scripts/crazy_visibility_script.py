@@ -4,10 +4,11 @@ from tkinter import *
 class visibility_script(script_base):
 
 
-    def get_setup_frame(self) -> Frame:
+    def get_setup_frame(self, frame) -> Frame:
 
-        frame = Frame()
-        Label(frame, text="frame 2").pack()
-        return frame
+        self.frame = frame
+
+        Label(self.frame, text="VISIBILITY SCRIPT").pack()
+        return self.frame
 
     
