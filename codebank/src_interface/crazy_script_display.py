@@ -19,20 +19,23 @@ class script_display(Frame):
 
         self.script_name_to_frame = {}
 
-        self.chosen_frame = self.load_initial_script_subframe()
+        
+
 
         
 
-        for script in self.scripts:
-            initial_frame = self.initialize_chosen_frame()
-            self.script_name_to_frame[script] = scanner.load_script(script, initial_frame)
 
 
+
+        
         self.create_scripts_window()
+
+        
+
 
 
     def initialize_chosen_frame(self):
-        frame = Frame(background="yellow")
+        frame = Frame(self.content_frame, background="yellow")
         return frame
 
     def create_scripts_window(self) -> None:
@@ -46,8 +49,23 @@ class script_display(Frame):
         - 
         """
 
-        contents_frame = self.create_content_frame()
-        contents_frame.pack(side=TOP, expand=TRUE)
+        
+
+        self.create_content_frame()
+        self.content_frame.pack(side=TOP, expand=TRUE)
+
+
+        
+
+        for script in self.scripts:
+            initial_frame = self.initialize_chosen_frame()
+            class_instance = scanner.load_script(script)
+            self.script_name_to_frame[script] = class_instance.get_setup_frame(initial_frame)
+
+
+       
+
+        
 
 
 
@@ -68,12 +86,14 @@ class script_display(Frame):
         """
 
         if "script" not in kwargs:
-            return self.load_initial_script_subframe()
+            frame = self.load_initial_script_subframe()
+            
 
         else:
             script_name = kwargs["script"]
             frame = self.script_name_to_frame[script_name]
-            return frame
+        
+        return frame
 
     def pack_chosen_script_subframe(self,parent_frame:Frame, **kwargs):
 
@@ -85,14 +105,16 @@ class script_display(Frame):
 
     def create_content_frame(self) -> Frame:
 
-        content_frame = Frame(self)
+        self.content_frame = Frame(self)
 
-        script_frame = self.create_scripts_frame(content_frame, self.scripts)
+        self.chosen_frame = self.initialize_chosen_frame()
+
+        script_frame = self.create_scripts_frame(self.content_frame, self.scripts)
         script_frame.pack(side=LEFT, fill=Y, expand=TRUE)
+        #
+        
 
-        self.pack_chosen_script_subframe(content_frame)
-
-        return content_frame
+        self.pack_chosen_script_subframe(self.content_frame)
 
     def create_options_frame(self):
 

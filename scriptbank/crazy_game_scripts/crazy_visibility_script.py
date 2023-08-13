@@ -3,6 +3,9 @@ from tkinter import *
 
 class visibility_script(script_base):
 
+    def __init__(self):
+        pass
+
 
     def get_setup_frame(self, frame) -> Frame:
 

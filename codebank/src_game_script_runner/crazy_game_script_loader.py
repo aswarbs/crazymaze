@@ -20,7 +20,7 @@ def scan_scripts(path: str = "scriptbank/crazy_game_scripts") -> list[str]:
     return py_file_list
 
 
-def load_script(file_name:str, frame:Frame, path:str="scriptbank/crazy_game_scripts",) -> dict[str, Frame]:
+def load_script(file_name:str, path:str="scriptbank/crazy_game_scripts",) -> dict[str, Frame]:
     """
     retrieve the setup frame for every script
     """
@@ -39,5 +39,5 @@ def load_script(file_name:str, frame:Frame, path:str="scriptbank/crazy_game_scri
         # Check if the attribute is a class and inherits from ScriptBase
         if inspect.isclass(attribute) and issubclass(attribute, script_base) and attribute is not script_base:
 
-            current_frame = attribute.get_setup_frame(attribute, frame)
-            return current_frame
+            attribute_instance = attribute()
+            return attribute_instance
